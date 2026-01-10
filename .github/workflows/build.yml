@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 仅新增：声明工作流权限，解决GITHUB_TOKEN无写入权限的核心问题
+    permissions:
+      contents: write
     steps:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -28,6 +31,9 @@ jobs:
       # 1. 拉取代码
       - name: Checkout code
         uses: actions/checkout@v4
+        # 仅新增：拉取完整仓库历史，避免推送分支时的历史缺失问题
+        with:
+          fetch-depth: 0
 
       # 2. 安装 Node.js（Astro 要求 Node.js 18+）
       - name: Setup Node.js
@@ -52,8 +58,3 @@ jobs:
           publish_dir: ./dist  # 要推送的目录（Astro 构建产物）
           publish_branch: page  # 目标分支（page 分支）
           force_orphan: true  # 强制创建孤儿分支（只保留 dist 内容，可选）
-
-
-
-
-
