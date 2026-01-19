@@ -55,7 +55,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		// 保留空数组则使用默认favicon
 		{
-			src: "https://file.fis.ink/img/fishcpy/logo_c.png", // favicon路径，相对于/public目录
+			src: "https://img.scdn.io/i/696e0f2b20919_1768820523.webp", // favicon路径，相对于/public目录
 			//theme: 'light',              // (可选) 'light'或'dark'，仅在为浅色和深色模式设置了不同favicon时使用
 			//sizes: '32x32',              // (可选) favicon尺寸，仅在设置了不同尺寸的favicon时使用
 		},

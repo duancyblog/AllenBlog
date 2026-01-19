@@ -39,13 +39,15 @@ export function MusicCardComponent(properties, children) {
 	const id = properties.id;
 	const mini = properties.mini === "true" || properties.mini === true;
 	const fixed = properties.fixed === "true" || properties.fixed === true;
-	const autoplay = properties.autoplay === "true" || properties.autoplay === true;
+	const autoplay =
+		properties.autoplay === "true" || properties.autoplay === true;
 	const theme = properties.theme || "#2980b9";
 	const loop = properties.loop || "all";
 	const order = properties.order || "list";
 	const volume = properties.volume || "0.7";
 	const mutex = properties.mutex !== "false" && properties.mutex !== false;
-	const listFolded = properties.listFolded === "true" || properties.listFolded === true;
+	const listFolded =
+		properties.listFolded === "true" || properties.listFolded === true;
 	const listMaxHeight = properties.listMaxHeight || "340px";
 
 	const cardUuid = `MC${Math.random().toString(36).slice(-6)}`;

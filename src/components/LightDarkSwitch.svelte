@@ -6,8 +6,8 @@ import Icon from "@iconify/svelte";
 import {
 	applyThemeToDocument,
 	getStoredTheme,
-	setTheme,
 	isThemeForced,
+	setTheme,
 } from "@utils/setting-utils.ts";
 import { onMount } from "svelte";
 import type { LIGHT_DARK_MODE } from "@/types/config.ts";

@@ -21,6 +21,8 @@ import type { Favicon } from "../types/config";
 import { printConsoleBanner } from "../utils/console-banner";
 import { pathsEqual, url } from "../utils/url-utils";
 import "katex/dist/katex.css";
+import { getCollection } from "astro:content"; // 新增：获取content目录的文章
+import EssayCarousel from "../components/EssayCarousel.astro"; // 新增：导入轮播组件
 
 interface Props {
 	title?: string;
