@@ -81,4 +81,4 @@
 		"postcss-stylus": "https://github.com/stylus/stylus/archive/refs/tags/0.64.0.tar.gz"
 	},
 	"packageManager": "pnpm@9.14.4"
-}
+}   
