@@ -1,28 +1,40 @@
 ---
 import { beautifyConfig } from "@/config";
 
-const { enable, field, titlePrefixIcon, titlePrefixIconColor, animation, hover, colors, sizes } = beautifyConfig;
+const {
+	enable,
+	field,
+	titlePrefixIcon,
+	titlePrefixIconColor,
+	animation,
+	hover,
+	colors,
+	sizes,
+} = beautifyConfig;
 
 // 根据配置生成CSS变量
 const cssVars = {
-	'--title-icon': `"${titlePrefixIcon}"`,
-	'--title-icon-color': titlePrefixIconColor,
-	'--animation-speed': (animation?.enable && animation?.rotate) ? `${animation.speed}s` : '0s',
-	'--animation-direction': animation?.direction === 'clockwise' ? '360deg' : '-360deg',
-	'--hover-speed': (hover?.enable && animation?.rotate) ? `${hover.slowSpeed}s` : '0s',
-	'--hover-color': hover?.color || titlePrefixIconColor,
-	'--h1-color': colors?.h1 || titlePrefixIconColor,
-	'--h2-color': colors?.h2 || titlePrefixIconColor,
-	'--h3-color': colors?.h3 || titlePrefixIconColor,
-	'--h4-color': colors?.h4 || titlePrefixIconColor,
-	'--h5-color': colors?.h5 || titlePrefixIconColor,
-	'--h6-color': colors?.h6 || titlePrefixIconColor,
-	'--h1-size': sizes?.h1 || '1.3rem',
-	'--h2-size': sizes?.h2 || '1.1rem',
-	'--h3-size': sizes?.h3 || '0.95rem',
-	'--h4-size': sizes?.h4 || '0.8rem',
-	'--h5-size': sizes?.h5 || '0.7rem',
-	'--h6-size': sizes?.h6 || '0.66rem',
+	"--title-icon": `"${titlePrefixIcon}"`,
+	"--title-icon-color": titlePrefixIconColor,
+	"--animation-speed":
+		animation?.enable && animation?.rotate ? `${animation.speed}s` : "0s",
+	"--animation-direction":
+		animation?.direction === "clockwise" ? "360deg" : "-360deg",
+	"--hover-speed":
+		hover?.enable && animation?.rotate ? `${hover.slowSpeed}s` : "0s",
+	"--hover-color": hover?.color || titlePrefixIconColor,
+	"--h1-color": colors?.h1 || titlePrefixIconColor,
+	"--h2-color": colors?.h2 || titlePrefixIconColor,
+	"--h3-color": colors?.h3 || titlePrefixIconColor,
+	"--h4-color": colors?.h4 || titlePrefixIconColor,
+	"--h5-color": colors?.h5 || titlePrefixIconColor,
+	"--h6-color": colors?.h6 || titlePrefixIconColor,
+	"--h1-size": sizes?.h1 || "1.3rem",
+	"--h2-size": sizes?.h2 || "1.1rem",
+	"--h3-size": sizes?.h3 || "0.95rem",
+	"--h4-size": sizes?.h4 || "0.8rem",
+	"--h5-size": sizes?.h5 || "0.7rem",
+	"--h6-size": sizes?.h6 || "0.66rem",
 };
 ---
 

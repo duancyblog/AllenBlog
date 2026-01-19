@@ -13,32 +13,27 @@
 </style>
 
 <div class="center-content">
-    <img src="https://file.fis.ink/img/fishcpy/logo_c.png" alt="图片描述">
-    <p>Hello 👋 I'm fishcpy</p>
+    <img src="https://img.scdn.io/i/69451d727217f_1766137202.png" alt="Author Image">
+    <p>Hello 👋 I'm Allen2030</p>
 </div>
 
-# <a href="https://z.fishcpy.top" target="_blank">赞助</a>
+# <a href="http://2970877419.qzone.qq.com" target="_blank">赞助加QQ</a>
 
-> ## 赞助了一定要给[fishcpy@qq.com](mailto:fishcpy@qq.com)发邮件，表明渠道和单号，和你自己名称和内容，否则我认不清可能加不上。
+> ## 赞助了一定要给[Allen2030](mailto:duancy2014@126.com)发邮件，表明渠道和单号，和你自己名称和内容，否则我认不清可能加不上。
 
 | 名字   | 时间       | 备注 | 金额（单位：元） |
 |--------|------------|------|------------------|
-| *G     | 2025-2-17  | 无   | 10               |
-| WB     | 2025-4-22  | 无   | 15               |
-| 洛狐	 | 2025-6-21  | FCL站长	 | 5             |
-| 洛狐	 | 2025-6-27  | 下载站6月分成 | 21.39             |
-| 洛狐	 | 2025-8-1  | 下载站7月分成 | 63.66              |
-| 鈴奈咲桜 | 2025-8-17  | 看好你哦(>^ω^<) | 5              |
-| swt | 2025-8-17  | 91*15 | 0.91              |
+| Oliver     | 2026-1-？？  | 无   | 30               |
 
 # 联系我
 
-### 邮箱地址:[fishcpy@qq.com](mailto:fishcpy@qq.com)
+### 邮箱地址:[Allen2030](mailto:duancy2014@126.com)
 
 
-> ### 由以下云服务商提供云服务
-> - [cloudflare](https://www.cloudflare.com) -随时随地连⁠接、保⁠护、构建
-> - [云驰互联](https://cloud.zyidc.net/aff/MYIMKXBB) -提供企业一站式产品与服务
+> ### 本站由以下网络服务商提供云计算服务
+> - [阿里云](https://www.aliyun.com) -计算，为了无法计算的价值
+> - [腾讯云](https://cloud.tencent.com) -产业质变·云起未来
+> - [EdgeOne](https://www.edgeone.cn) -Best Asian CDN, Edge, and Secure Solutions
 
 # 本站由 [Fuwari](https://github.com/saicaca/fuwari) 强力驱动
 ::github{repo="saicaca/fuwari"}

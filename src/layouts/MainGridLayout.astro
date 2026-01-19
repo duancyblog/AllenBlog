@@ -7,6 +7,7 @@ import MobileSidebar from "@components/widget/MobileSidebar.astro";
 import SideBar from "@components/widget/SideBar.astro";
 import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
+import EssayCarousel from "../components/EssayCarousel.astro";
 import BannerWrapper from "../components/misc/BannerWrapper.astro";
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import TOC from "../components/widget/TOC.astro";
@@ -94,6 +95,12 @@ const mainPanelTop = siteConfig.banner.enable
                 <div id="content-wrapper" class="onload-animation">
                     <!-- the overflow-hidden here prevent long text break the layout-->
                     <!-- make id different from windows.swup global property -->
+                    <!-- Essay Carousel - only show on home page -->
+                    {Astro.url.pathname === '/' && (
+                        <div class="mb-4">
+                            <EssayCarousel />
+                        </div>
+                    )}
                     <slot></slot>
                     
                     {/* 添加评论组件，仅在友链页面显示 */}

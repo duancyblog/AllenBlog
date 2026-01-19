@@ -1,6 +1,6 @@
 ---
-import ImageWrapper from "./ImageWrapper.astro";
 import { siteConfig } from "../../config";
+import ImageWrapper from "./ImageWrapper.astro";
 
 interface Props {
 	id?: string;
@@ -14,8 +14,8 @@ const bannerConfig = siteConfig.banner;
 const isVideo = bannerConfig.type === "video";
 const positionClass = {
 	top: "object-top",
-	center: "object-center", 
-	bottom: "object-bottom"
+	center: "object-center",
+	bottom: "object-bottom",
 }[bannerConfig.position || "center"];
 ---
 

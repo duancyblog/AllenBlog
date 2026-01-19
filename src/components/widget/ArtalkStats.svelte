@@ -1,38 +1,40 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { commentConfig } from '@/config';
-  
-  export let pageKey: string;
-  
-  let pageViews = 0;
-  let commentCount = 0;
-  let loading = true;
-  
-  onMount(async () => {
-    if (commentConfig.type === 'artalk' && commentConfig.artalk?.server) {
-      try {
-        const server = commentConfig.artalk.server;
-        const site = commentConfig.artalk.site || 'fishcpy theme demo';
-        
-        // 获取统计数据
-        const response = await fetch(`${server}/api/v2/stats?site_name=${encodeURIComponent(site)}&page_key=${encodeURIComponent(pageKey)}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          pageViews = data.pv || 0;
-          commentCount = data.comment_count || 0;
-        } else {
-          console.warn('Failed to fetch Artalk stats:', response.status);
-        }
-      } catch (error) {
-        console.error('Error fetching Artalk stats:', error);
-      } finally {
-        loading = false;
-      }
-    } else {
-      loading = false;
-    }
-  });
+import { onMount } from "svelte";
+import { commentConfig } from "@/config";
+
+export let pageKey: string;
+
+let pageViews = 0;
+let commentCount = 0;
+let loading = true;
+
+onMount(async () => {
+	if (commentConfig.type === "artalk" && commentConfig.artalk?.server) {
+		try {
+			const server = commentConfig.artalk.server;
+			const site = commentConfig.artalk.site || "fishcpy theme demo";
+
+			// 获取统计数据
+			const response = await fetch(
+				`${server}/api/v2/stats?site_name=${encodeURIComponent(site)}&page_key=${encodeURIComponent(pageKey)}`,
+			);
+
+			if (response.ok) {
+				const data = await response.json();
+				pageViews = data.pv || 0;
+				commentCount = data.comment_count || 0;
+			} else {
+				console.warn("Failed to fetch Artalk stats:", response.status);
+			}
+		} catch (error) {
+			console.error("Error fetching Artalk stats:", error);
+		} finally {
+			loading = false;
+		}
+	} else {
+		loading = false;
+	}
+});
 </script>
 
 {#if !loading && commentConfig.type === 'artalk'}

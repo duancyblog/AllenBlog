@@ -111,7 +111,7 @@ export function LinkCardComponent(properties, children) {
 	// 创建主要内容区域
 	const nContentWrapper = h("div", { class: "lc-content-wrapper" }, [
 		h("div", { class: "lc-icon-area" }, [nFavicon]),
-		h("div", { class: "lc-text-area" }, [nTitle, nCardTitle, nDescription])
+		h("div", { class: "lc-text-area" }, [nTitle, nCardTitle, nDescription]),
 	]);
 
 	const cardContent = [nContentWrapper];

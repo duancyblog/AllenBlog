@@ -48,5 +48,6 @@ export const en: Translation = {
 	[Key.retry]: "Retry",
 	[Key.noArticles]: "No Articles",
 	[Key.refresh]: "Refresh",
-	[Key.refreshTip]: "If it takes too long to load, please try refreshing the page",
+	[Key.refreshTip]:
+		"If it takes too long to load, please try refreshing the page",
 };

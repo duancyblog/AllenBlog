@@ -1,44 +1,44 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  
-  let totalViews = 0;
-  let loading = true;
-  let error = null;
+import { onMount } from "svelte";
 
-  onMount(() => {
-    // 等待Twikoo加载完成
-    const checkTwikoo = () => {
-      if (typeof window !== 'undefined' && window.twikoo) {
-        // 如果Twikoo已加载，尝试获取统计信息
-        try {
-          // 这里可以添加获取Twikoo统计信息的逻辑
-          // 目前先显示一个简单的统计
-          const visitorsElement = document.getElementById('twikoo_visitors');
-          if (visitorsElement && visitorsElement.textContent !== '0') {
-            totalViews = parseInt(visitorsElement.textContent) || 0;
-          }
-          loading = false;
-        } catch (err) {
-          error = '统计数据获取失败';
-          loading = false;
-        }
-      } else {
-        // 如果Twikoo还没加载，继续等待
-        setTimeout(checkTwikoo, 1000);
-      }
-    };
+let totalViews = 0;
+let loading = true;
+let error = null;
 
-    // 开始检查
-    setTimeout(checkTwikoo, 2000); // 给Twikoo一些时间加载
+onMount(() => {
+	// 等待Twikoo加载完成
+	const checkTwikoo = () => {
+		if (typeof window !== "undefined" && window.twikoo) {
+			// 如果Twikoo已加载，尝试获取统计信息
+			try {
+				// 这里可以添加获取Twikoo统计信息的逻辑
+				// 目前先显示一个简单的统计
+				const visitorsElement = document.getElementById("twikoo_visitors");
+				if (visitorsElement && visitorsElement.textContent !== "0") {
+					totalViews = Number.parseInt(visitorsElement.textContent) || 0;
+				}
+				loading = false;
+			} catch (err) {
+				error = "统计数据获取失败";
+				loading = false;
+			}
+		} else {
+			// 如果Twikoo还没加载，继续等待
+			setTimeout(checkTwikoo, 1000);
+		}
+	};
 
-    // 5秒后停止加载
-    setTimeout(() => {
-      if (loading) {
-        loading = false;
-        error = '统计服务暂时不可用';
-      }
-    }, 5000);
-  });
+	// 开始检查
+	setTimeout(checkTwikoo, 2000); // 给Twikoo一些时间加载
+
+	// 5秒后停止加载
+	setTimeout(() => {
+		if (loading) {
+			loading = false;
+			error = "统计服务暂时不可用";
+		}
+	}, 5000);
+});
 </script>
 
 <div class="pb-4 card-base card-shadow onload-animation" style="animation-delay: 250ms">

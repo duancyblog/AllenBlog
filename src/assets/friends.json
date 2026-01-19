@@ -1,10 +1,19 @@
 [
 	{
+		"title": "清羽飞扬",
+		"imgurl": "https://blog.liushen.fun/info/avatar.ico",
+		"desc": "柳影曳曳，清酒孤灯，扬笔撒墨，心境如霜",
+		"siteurl": "https://blog.liushen.fun/",
+		"category": "朋友",
+		"tags": [""],
+		"openInNewTab": true
+	},
+	{
 		"title": "凨狐的小窝",
 		"imgurl": "https://cdn.fis.ink/cdn/2025/08/10/6898552d1089d.webp",
 		"desc": "这个名字...一看就很不想让人搜到",
 		"siteurl": "https://fur.tax",
-		"category": "朋友",
+		"category": "博客",
 		"tags": [""],
 		"openInNewTab": true
 	},
@@ -76,15 +85,6 @@
 		"imgurl": "https://blog.245179.xyz/images/atiq.png",
 		"desc": "人生近看是悲剧，远看是喜剧",
 		"siteurl": "https://blog.245179.xyz/",
-		"category": "博客",
-		"tags": [""],
-		"openInNewTab": true
-	},
-	{
-		"title": "清羽飞扬",
-		"imgurl": "https://blog.liushen.fun/info/avatar.ico",
-		"desc": "柳影曳曳，清酒孤灯，扬笔撒墨，心境如霜",
-		"siteurl": "https://blog.liushen.fun/",
 		"category": "博客",
 		"tags": [""],
 		"openInNewTab": true
@@ -351,38 +351,11 @@
 		"openInNewTab": true
 	},
 	{
-		"title": "笑笑API",
-		"imgurl": "http://145.net.cn/zzul/",
-		"desc": "笑笑API",
-		"siteurl": "https://api.k9b.cn/",
-		"category": "其他",
-		"tags": [""],
-		"openInNewTab": true
-	},
-	{
-		"title": "fishcpy cloud",
-		"imgurl": "https://file.fis.ink/img/fishcpy/logo.png",
-		"desc": "fishcpy cloud",
-		"siteurl": "https://www.fis.ink",
-		"category": "赞助商",
-		"tags": [""],
-		"openInNewTab": true
-	},
-	{
 		"title": "Astro",
 		"imgurl": "https://avatars.githubusercontent.com/u/44914786?s=48&v=4",
-		"desc": "本站框架",
+		"desc": "博客框架",
 		"siteurl": "https://github.com/withastro/astro",
-		"category": "框架&主题",
-		"tags": [""],
-		"openInNewTab": true
-	},
-	{
-		"title": "fishcpy theme",
-		"imgurl": "https://file.fis.ink/img/fishcpy/logo.png",
-		"desc": "本站主题",
-		"siteurl": "https://github.com/fishcpy/astro-theme-fishcpy",
-		"category": "框架&主题",
+		"category": "框架",
 		"tags": [""],
 		"openInNewTab": true
 	}
