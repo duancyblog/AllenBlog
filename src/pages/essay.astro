@@ -1,13 +1,13 @@
 ---
 import Comment from "@components/comment/index.astro";
 import { Icon } from "astro-icon/components";
-import essayData from "../assets/essay.json";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { fetchEch0Posts } from "../utils/ech0-api";
 
-// 按ID倒序排列，ID越大越靠前
-const essays = essayData.sort((a, b) => b.id - a.id);
+// 从Ech0 API获取动态数据
+const essays = await fetchEch0Posts("https://say.allen2030.com");
 
 // 为评论区创建一个模拟的post对象
 const mockPost = {
@@ -22,7 +22,7 @@ const mockPost = {
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32 mb-8">
         <div class="card-base z-10 px-9 py-6 relative w-full">
             <h1 class="text-4xl font-bold mb-6 text-neutral-900 dark:text-white">说说</h1>
-            <p class="text-neutral-600 dark:text-neutral-400 mb-8">Ech0动态镜像</p>
+            <p class="text-neutral-600 dark:text-neutral-400 mb-8">Ech0 API智能获取</p>
             
             <div class="space-y-6">
                 {essays.map((essay) => (
@@ -80,7 +80,17 @@ const mockPost = {
                                 )}
                             </div>
                             
-
+                            <!-- 评论按钮 -->
+                            <div>
+                                <button 
+                                    class="flex items-center gap-1 text-sm hover:text-primary transition-colors"
+                                    data-content={`${essay.content}`}
+                                    onclick="window.commentOnPost(this)"
+                                >
+                                    <Icon name="material-symbols:chat" class="text-base" />
+                                    <span>评论</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -89,7 +99,7 @@ const mockPost = {
     </div>
 
     <!-- 评论区 -->
-    <div id="comments-section">
+    <div id="comments-section" class="twikoo-container">
         <Comment path="/essay/" />
     </div>
 </MainGridLayout>
@@ -117,3 +127,60 @@ const mockPost = {
         white-space: pre-wrap;
     }
 </style>
+
+<script>
+    // 全局评论函数
+    window.commentOnPost = function(button) {
+        const content = button.dataset.content;
+        console.log('commentOnPost called with content:', content);
+        
+        // 滚动到评论区
+        const commentsSection = document.getElementById('comments-section');
+        if (commentsSection) {
+            console.log('Found comments section, scrolling...');
+            commentsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            console.log('Comments section not found, scrolling to bottom...');
+            window.scrollTo({ 
+                top: document.body.scrollHeight, 
+                behavior: 'smooth' 
+            });
+        }
+        
+        // 增加延迟时间，确保滚动完成且Twikoo完全加载
+        setTimeout(() => {
+            console.log('Trying to find textarea...');
+            // 尝试找到Twikoo输入框
+            const textarea = document.querySelector('.el-textarea__inner') || 
+                           document.querySelector('#twikoo textarea') || 
+                           document.querySelector('textarea');
+            
+            if (textarea) {
+                console.log('Found textarea:', textarea);
+                // 填充引用内容
+                textarea.value = `> ${content}\n\n`;
+                // 聚焦输入框
+                textarea.focus();
+                // 触发输入事件
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                console.log('Content filled into textarea');
+            } else {
+                console.log('Textarea not found, trying again...');
+                // 再次尝试
+                setTimeout(() => {
+                    const retryTextarea = document.querySelector('.el-textarea__inner') || 
+                                         document.querySelector('textarea');
+                    if (retryTextarea) {
+                        console.log('Found textarea on retry:', retryTextarea);
+                        retryTextarea.value = `> ${content}\n\n`;
+                        retryTextarea.focus();
+                        retryTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+                        console.log('Content filled into textarea on retry');
+                    } else {
+                        console.log('Textarea still not found');
+                    }
+                }, 500);
+            }
+        }, 800);
+    };
+</script>

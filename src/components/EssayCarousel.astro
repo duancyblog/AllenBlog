@@ -1,34 +1,39 @@
 ---
-import essayData from "../assets/essay.json";
+import { fetchEch0Posts } from "../utils/ech0-api";
+
+// 从Ech0 API获取动态数据
+const essayData = await fetchEch0Posts("https://say.allen2030.com");
 ---
 
 <div class="essay-carousel-container w-full py-4">
   <div class="max-w-[var(--page-width)] mx-auto px-4">
-    <div class="essay-carousel relative overflow-hidden card-base card-shadow card-glass cursor-pointer" onclick="window.location.href='/essay/'">
-      <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carousel-track">
+    <div class="essay-carousel relative overflow-hidden card-base card-shadow card-glass cursor-pointer h-[40px]" onclick="window.location.href='/essay/'">
+      <div class="carousel-track flex flex-col transition-transform duration-500 ease-in-out" id="carousel-track">
         {essayData.map((item, index) => (
           <div 
             key={item.id} 
-            class="carousel-item flex-shrink-0 w-full px-6 py-4"
+            class="carousel-item flex-shrink-0 w-full px-6 py-2 h-[40px] flex items-center justify-center"
           >
-            <div class="carousel-content flex items-center justify-center h-full">
-              <p class="text-content text-center">{item.content}</p>
+            <div class="carousel-content w-full text-center">
+              <p class="text-content">{item.images ? '[图片]' : item.content}</p>
             </div>
           </div>
         ))}
       </div>
       
       <!-- 轮播指示器 -->
-      <div class="carousel-indicators absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
-        {essayData.map((_, index) => (
-          <button 
-            key={index} 
-            class={`indicator w-1.5 h-1.5 rounded-full transition-all ${index === 0 ? 'bg-primary w-4' : 'bg-muted'}`}
-            data-index={index}
-            onclick="event.stopPropagation();"
-          ></button>
-        ))}
-      </div>
+      {essayData.length > 0 && (
+        <div class="carousel-indicators absolute bottom-1 left-1/2 transform -translate-x-1/2 flex gap-1">
+          {essayData.map((_, index) => (
+            <button 
+              key={index} 
+              class={`indicator w-1 h-1 rounded-full transition-all ${index === 0 ? 'bg-primary w-3' : 'bg-muted'}`}
+              data-index={index}
+              onclick="event.stopPropagation();"
+            ></button>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 </div>
@@ -42,19 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!track || !items.length) return;
   
   let currentIndex = 0;
-  const itemWidth = items[0].offsetWidth + 32; // 包含左右padding
+  const itemHeight = 40; // 固定高度，确保一次只显示一条
   
   function updateCarousel() {
-    const offset = -currentIndex * itemWidth;
-    track.style.transform = `translateX(${offset}px)`;
+    const offset = -currentIndex * itemHeight;
+    track.style.transform = `translateY(${offset}px)`;
     
     // 更新指示器
     indicators.forEach((indicator, index) => {
       if (index === currentIndex) {
-        indicator.classList.add('bg-primary', 'w-4');
+        indicator.classList.add('bg-primary', 'w-3');
         indicator.classList.remove('bg-muted');
       } else {
-        indicator.classList.remove('bg-primary', 'w-4');
+        indicator.classList.remove('bg-primary', 'w-3');
         indicator.classList.add('bg-muted');
       }
     });
