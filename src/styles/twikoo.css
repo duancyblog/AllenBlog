@@ -144,3 +144,131 @@ html.dark {
 }
 
 }
+
+/* Fix: align emoji and image buttons to the left edge of the input toolbar */
+#twikoo .tk-row.actions {
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 0.6rem !important;
+  padding-left: 0 !important;
+}
+
+/* Target common Twikoo toolbar button classes and generic buttons inside actions */
+#twikoo .tk-row.actions .tk-emoji-btn,
+#twikoo .tk-row.actions .tk-image-btn,
+#twikoo .tk-row.actions button,
+#twikoo .tk-row.actions a {
+  margin-left: 0 !important;
+  margin-right: 0.4rem !important;
+  align-self: center !important;
+}
+
+/* If icon wrapper has padding, reduce it so icons sit closer to left */
+#twikoo .tk-row.actions .el-icon,
+#twikoo .tk-row.actions .tk-action-icon {
+  padding-left: 0 !important;
+  padding-right: 0.2rem !important;
+}
+
+/* More specific fallbacks for nested toolbar structures */
+#twikoo .tk-row.actions .tk-col,
+#twikoo .tk-row.actions .tk-input,
+#twikoo .tk-row.actions .tk-toolbar,
+#twikoo .tk-row.actions .tk-actions {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* If the toolbar uses an inner wrapper, align its children to left */
+#twikoo .tk-row.actions .tk-actions > *,
+#twikoo .tk-row.actions .tk-toolbar > * {
+  margin-left: 0 !important;
+  margin-right: 0.3rem !important;
+}
+
+/* Absolute-position fallback for stubborn themes: pin icons near left edge of the input box */
+#twikoo .tk-row.actions .tk-actions {
+  position: relative !important;
+}
+#twikoo .tk-row.actions .tk-emoji-btn,
+#twikoo .tk-row.actions .tk-image-btn {
+  position: relative !important;
+  left: 0 !important;
+}
+
+/* Reduce left padding inside icon buttons to make them closer to the left edge */
+#twikoo .tk-row.actions .tk-emoji-btn .el-icon,
+#twikoo .tk-row.actions .tk-image-btn .el-icon {
+  padding-left: 0 !important;
+}
+
+/* Enhanced fix for emoji and image button alignment */
+#twikoo .tk-row.actions {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Ensure toolbar buttons are properly aligned */
+#twikoo .tk-emoji-btn,
+#twikoo .tk-image-btn {
+  margin: 0 !important;
+  padding: 0.2rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+}
+
+/* Fix toolbar container alignment */
+#twikoo .tk-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Fix input area alignment */
+#twikoo .tk-input {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Fix meta input alignment */
+#twikoo .tk-meta-input {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Fix submit area alignment */
+#twikoo .tk-submit {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Fix column alignment */
+#twikoo .tk-col {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Remove preview button */
+#twikoo .tk-preview {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}

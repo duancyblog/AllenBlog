@@ -29,7 +29,112 @@ const config = {
       console.log('Twikoo script loaded, initializing...');
       // 不输出包含敏感信息的配置
     
-      // 尝试多种环境ID格式
+      // 尝试多种环境ID格式// 在现有的脚本中添加以下修复代码
+
+// 修复表情包定位和点击问题
+function fixTwikooEmoji() {
+  // 等待 Twikoo 完全加载
+  const checkExist = setInterval(function() {
+    const buttons = document.querySelectorAll('#twikoo .tk-emoji-btn');
+    if (buttons && buttons.length) {
+      clearInterval(checkExist);
+
+      // 注入样式（id 防重复）
+      if (!document.getElementById('twikoo-emoji-fix-style')) {
+        const style = document.createElement('style');
+        style.id = 'twikoo-emoji-fix-style';
+        style.textContent = `
+          #twikoo .tk-emoji-popover {
+            position: fixed !important;
+            z-index: 99999 !important;
+            transform: none !important;
+            display: none !important;
+            will-change: transform, top, left;
+          }
+
+          #twikoo .tk-emoji-popover.tk-emoji-popover-show {
+            display: block !important;
+          }
+
+          /* 避免父容器溢出剪裁 */
+          #twikoo {
+            overflow: visible !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // 用于重定位的辅助函数
+      const positionPopover = (btn, popover) => {
+        if (!btn || !popover) return;
+        const rect = btn.getBoundingClientRect();
+        const left = Math.max(8, rect.left);
+        const top = rect.bottom + 6; // 与按钮下方稍微留隙
+        popover.style.left = left + 'px';
+        popover.style.top = top + 'px';
+      };
+
+      // 处理每个按钮，确保点击时定位到视口
+      buttons.forEach((btn) => {
+        // 去重，避免重复绑定
+        if (btn.__twikooEmojiBound) return;
+        btn.__twikooEmojiBound = true;
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const popover = document.querySelector('#twikoo .tk-emoji-popover');
+          if (!popover) return;
+
+          // 切换显示
+          const shown = popover.classList.toggle('tk-emoji-popover-show');
+          if (shown) {
+            positionPopover(btn, popover);
+          }
+        });
+      });
+
+      // 点击空白区域关闭
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('#twikoo .tk-emoji-btn') && !e.target.closest('#twikoo .tk-emoji-popover')) {
+          const popover = document.querySelector('#twikoo .tk-emoji-popover');
+          if (popover) popover.classList.remove('tk-emoji-popover-show');
+        }
+      });
+
+      // 在滚动或调整大小时重定位当前打开的 popover
+      const repositionIfShown = () => {
+        const popover = document.querySelector('#twikoo .tk-emoji-popover');
+        if (!popover || !popover.classList.contains('tk-emoji-popover-show')) return;
+        // 找到与之对应的按钮（靠近左上角的按钮）
+        const buttons = Array.from(document.querySelectorAll('#twikoo .tk-emoji-btn'));
+        let closest = null;
+        let minDist = Infinity;
+        const popRect = popover.getBoundingClientRect();
+        buttons.forEach((b) => {
+          const r = b.getBoundingClientRect();
+          const dx = r.left - popRect.left;
+          const dy = r.top - popRect.top;
+          const d = Math.hypot(dx, dy);
+          if (d < minDist) { minDist = d; closest = b; }
+        });
+        if (closest) positionPopover(closest, popover);
+      };
+
+      window.addEventListener('resize', repositionIfShown);
+      window.addEventListener('scroll', repositionIfShown, { passive: true });
+    }
+  }, 100);
+}
+
+// 在 DOM 加载完成后调用修复函数
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(fixTwikooEmoji, 2000); // 给 Twikoo 更多时间初始化
+});
+
+// 在 Twikoo 初始化完成后再执行一次
+document.addEventListener("loadComment", () => {
+  setTimeout(fixTwikooEmoji, 1000);
+}, { once: true });
       const originalEnvId = config.envId;
       const envIdWithoutProtocol = originalEnvId ? originalEnvId.replace(/^https?:\/\//, '') : '';
     
