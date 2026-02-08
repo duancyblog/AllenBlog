@@ -37,24 +37,27 @@ export function isThemeForced(): boolean {
 }
 
 export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
+	const htmlElement = document.documentElement;
+	if (!htmlElement) return;
+	
 	switch (theme) {
 		case LIGHT_MODE:
-			document.documentElement.classList.remove("dark");
+			htmlElement.classList.remove("dark");
 			break;
 		case DARK_MODE:
-			document.documentElement.classList.add("dark");
+			htmlElement.classList.add("dark");
 			break;
 		case AUTO_MODE:
 			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-				document.documentElement.classList.add("dark");
+				htmlElement.classList.add("dark");
 			} else {
-				document.documentElement.classList.remove("dark");
+				htmlElement.classList.remove("dark");
 			}
 			break;
 	}
 
 	// Set the theme for Expressive Code
-	document.documentElement.setAttribute(
+	htmlElement.setAttribute(
 		"data-theme",
 		expressiveCodeConfig.theme,
 	);

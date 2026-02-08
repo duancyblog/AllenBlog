@@ -10,7 +10,7 @@ import { fetchEch0Posts } from "../utils/ech0-api";
 let essays = await fetchEch0Posts("https://say.allen2030.com");
 
 // 如果服务器端获取失败（只有一条备用数据），标记需要客户端获取
-const needsClientFetch = essays.length === 1 && essays[0].tags.includes('系统');
+const needsClientFetch = essays.length === 1 && essays[0].tags.includes("系统");
 
 // 为评论区创建一个模拟的post对象
 const mockPost = {
@@ -132,8 +132,15 @@ const mockPost = {
 </style>
 
 <script>
+    // 扩展Window接口
+    declare global {
+        interface Window {
+            commentOnPost: (button: HTMLButtonElement) => void;
+        }
+    }
+
     // 全局评论函数
-    window.commentOnPost = function(button) {
+    window.commentOnPost = function(button: HTMLButtonElement) {
         const content = button.dataset.content;
         console.log('commentOnPost called with content:', content);
         
@@ -154,11 +161,11 @@ const mockPost = {
         setTimeout(() => {
             console.log('Trying to find textarea...');
             // 尝试找到Twikoo输入框
-            const textarea = document.querySelector('.el-textarea__inner') || 
-                           document.querySelector('#twikoo textarea') || 
-                           document.querySelector('textarea');
+            const textarea = document.querySelector('.el-textarea__inner') as HTMLTextAreaElement | null || 
+                           document.querySelector('#twikoo textarea') as HTMLTextAreaElement | null || 
+                           document.querySelector('textarea') as HTMLTextAreaElement | null;
             
-            if (textarea) {
+            if (textarea && content) {
                 console.log('Found textarea:', textarea);
                 // 填充引用内容
                 textarea.value = `> ${content}\n\n`;
@@ -171,9 +178,9 @@ const mockPost = {
                 console.log('Textarea not found, trying again...');
                 // 再次尝试
                 setTimeout(() => {
-                    const retryTextarea = document.querySelector('.el-textarea__inner') || 
-                                         document.querySelector('textarea');
-                    if (retryTextarea) {
+                    const retryTextarea = document.querySelector('.el-textarea__inner') as HTMLTextAreaElement | null || 
+                                         document.querySelector('textarea') as HTMLTextAreaElement | null;
+                    if (retryTextarea && content) {
                         console.log('Found textarea on retry:', retryTextarea);
                         retryTextarea.value = `> ${content}\n\n`;
                         retryTextarea.focus();
@@ -223,10 +230,12 @@ const mockPost = {
     function parseRSS(xmlText: string) {
         const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
         const entries: any[] = [];
-        let match;
+        let match: RegExpExecArray | null = null;
         let index = 0;
         
-        while ((match = entryRegex.exec(xmlText)) !== null) {
+        while (true) {
+            match = entryRegex.exec(xmlText);
+            if (match === null) break;
             const entryText = match[1];
             index++;
             
@@ -252,8 +261,10 @@ const mockPost = {
             // 提取图片
             const images: string[] = [];
             const imgRegex = /<img[^>]*src=["']([^"']+)["']/gi;
-            let imgMatch;
-            while ((imgMatch = imgRegex.exec(decodedSummary)) !== null) {
+            let imgMatch: RegExpExecArray | null = null;
+            while (true) {
+                imgMatch = imgRegex.exec(decodedSummary);
+                if (imgMatch === null) break;
                 let url = imgMatch[1];
                 if (url.startsWith('http://')) {
                     url = url.replace('http://', 'https://');
