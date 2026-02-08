@@ -106,7 +106,7 @@ export const navBarConfig: NavBarConfig = {
 				},
 				{
 					name: "节点监控",
-					url: "https://node.fishcpy.top",
+					url: "https://monitor.allen2030.com",
 					external: true,
 					icon: "fa6-solid:chart-line",
 				},
