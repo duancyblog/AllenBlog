@@ -497,7 +497,11 @@ function init() {
 }
 
 /* Load settings when entering the site */
-init();
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', init);
+} else {
+	init();
+}
 
 const setup = () => {
 	// TODO: temp solution to change the height of the banner
