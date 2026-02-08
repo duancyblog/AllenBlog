@@ -112,7 +112,6 @@ const needsClientFetch = essayData.length === 1 && essayData[0].tags?.includes('
     const itemsHTML = entries.map((entry, index) => `
       <div 
         class="carousel-item flex-shrink-0 w-full px-6 py-2 h-[40px] flex items-center justify-center"
-        style="transform: translateY(${index === 0 ? 0 : 40}px);"
       >
         <div class="carousel-content w-full text-center">
           <p class="text-content">${entry.content}</p>
