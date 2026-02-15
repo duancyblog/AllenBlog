@@ -1,0 +1,1240 @@
+<!DOCTYPE html><html lang="zh-CN" class="bg-[var(--page-bg)] transition text-[14px] md:text-[16px] bg-cover bg-center bg-no-repeat bg-fixed" data-overlayscrollbars-initialize style="background-image: url('https://api.fis.ink/mc'); --bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;" data-astro-cid-sckkx6r4> <head><title>城市建筑 - Allen2030&#39;s Blog</title><meta charset="UTF-8"><meta name="description" content="现代都市的建筑之美"><meta name="author" content="Allen2030"><meta name="keywords" content="fishcpy, fishcpy博客, 技术博客, 云服务, 网站部署, 内网穿透, CDN优化, Cloudflare, Serverless, Docker, Kubernetes, 微服务架构, API开发, GitHub Actions, 自动化部署, 对象存储, 文件图床, 性能优化, 网站安全, Web开发, 全栈开发, 云原生, 前后端逆向, 访问统计, 在线工具, meme生成器, AI工具, Koishi, QQ机器人"><meta name="baidu-site-verification" content="codeva-iC4flCvTh9"><meta property="og:site_name" content="Allen2030's Blog"><meta property="og:url" content="https://blog.fis.ink/album/architecture/"><meta property="og:title" content="城市建筑 - Allen2030's Blog"><meta property="og:description" content="现代都市的建筑之美"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.fis.ink/album/architecture/"><meta name="twitter:title" content="城市建筑 - Allen2030's Blog"><meta name="twitter:description" content="现代都市的建筑之美"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.13.7"><link rel="icon" href="https://img.scdn.io/i/696e0f2b20919_1768820523.webp"><!-- Set the theme before the page is rendered to avoid a flash --><script>(function(){const DEFAULT_THEME = "auto";
+const LIGHT_MODE = "light";
+const DARK_MODE = "dark";
+const AUTO_MODE = "auto";
+const BANNER_HEIGHT_EXTEND = 35;
+const PAGE_WIDTH = 90;
+const configHue = 260;
+const configTheme = "auto";
+
+			// Load the theme from config or local storage
+			const isThemeForced = configTheme === LIGHT_MODE || configTheme === DARK_MODE;
+			const theme = isThemeForced ? configTheme : (localStorage.getItem('theme') || DEFAULT_THEME);
+			
+			// Apply theme based on user's choice, not system preference unless in AUTO_MODE
+			switch (theme) {
+				case LIGHT_MODE:
+					document.documentElement.classList.remove('dark');
+					break
+				case DARK_MODE:
+					document.documentElement.classList.add('dark');
+					break
+				case AUTO_MODE:
+					if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						document.documentElement.classList.add('dark');
+					} else {
+						document.documentElement.classList.remove('dark');
+					}
+					break
+			}
+
+			// Load the hue from local storage
+			const hue = localStorage.getItem('hue') || configHue;
+			document.documentElement.style.setProperty('--hue', hue);
+
+			// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
+			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
+			offset = offset - offset % 4;
+			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
+		})();</script><!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why --><!-- Font Awesome 6 CDN --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"><style is:global>----title-icon: "";----title-icon-color: #ff7849;----animation-speed: 1.6s;----animation-direction: -360deg;----hover-speed: 3.2s;----hover-color: #49b1f5;----h1-color: #ef50a8;----h2-color: #fb7061;----h3-color: #ffbf00;----h4-color: #a9e000;----h5-color: #57c850;----h6-color: #5ec1e0;----h1-size: 1.3rem;----h2-size: 1.1rem;----h3-size: 0.95rem;----h4-size: 0.8rem;----h5-size: 0.7rem;----h6-size: 0.66rem;
+		/* 动态应用配置的标题美化样式 */
+		.custom-md h1::before,
+		.custom-md h2::before,
+		.custom-md h3::before,
+		.custom-md h4::before,
+		.custom-md h5::before,
+		.custom-md h6::before {
+			content: var(--title-icon);
+			color: var(--title-icon-color);
+			font-family: "Font Awesome 6 Free";
+			font-weight: 900;
+			display: inline-block;
+			margin-right: 0.5rem;
+			position: relative;
+			-webkit-animation: windmill-spin var(--animation-speed) linear infinite;
+			animation: windmill-spin var(--animation-speed) linear infinite;
+		}
+
+		/* 不同级别标题的特定样式 */
+		.custom-md h1::before {
+			color: var(--h1-color);
+			font-size: var(--h1-size);
+			margin-left: -1.35rem;
+			margin-top: -0.23rem;
+		}
+
+		.custom-md h2::before {
+			color: var(--h2-color);
+			font-size: var(--h2-size);
+			margin-left: -1.15rem;
+			margin-top: -0.12rem;
+		}
+
+		.custom-md h3::before {
+			color: var(--h3-color);
+			font-size: var(--h3-size);
+			margin-left: -1.02rem;
+			margin-top: -0.09rem;
+		}
+
+		.custom-md h4::before {
+			color: var(--h4-color);
+			font-size: var(--h4-size);
+			margin-left: -0.85rem;
+			margin-top: -0.09rem;
+		}
+
+		.custom-md h5::before {
+			color: var(--h5-color);
+			font-size: var(--h5-size);
+			margin-left: -0.7rem;
+			margin-top: 0rem;
+		}
+
+		.custom-md h6::before {
+			color: var(--h6-color);
+			font-size: var(--h6-size);
+			margin-left: -0.7rem;
+			margin-top: 0rem;
+		}
+
+		/* 鼠标悬停效果 */
+		.custom-md h1:hover,
+		.custom-md h2:hover,
+		.custom-md h3:hover,
+		.custom-md h4:hover,
+		.custom-md h5:hover,
+		.custom-md h6:hover {
+			color: var(--hover-color);
+		}
+
+		.custom-md h1:hover::before,
+		.custom-md h2:hover::before,
+		.custom-md h3:hover::before,
+		.custom-md h4:hover::before,
+		.custom-md h5:hover::before,
+		.custom-md h6:hover::before {
+			color: var(--hover-color);
+			-webkit-animation-duration: var(--hover-speed);
+			animation-duration: var(--hover-speed);
+		}
+
+		/* 关键帧动画 */
+		@-webkit-keyframes windmill-spin {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(var(--animation-direction));
+				transform: rotate(var(--animation-direction));
+			}
+		}
+
+		@keyframes windmill-spin {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(var(--animation-direction));
+				transform: rotate(var(--animation-direction));
+			}
+		}
+
+		/* 确保不影响锚点链接 */
+		.custom-md h1 .anchor,
+		.custom-md h2 .anchor,
+		.custom-md h3 .anchor,
+		.custom-md h4 .anchor,
+		.custom-md h5 .anchor,
+		.custom-md h6 .anchor {
+			margin-left: 0.2ch;
+		}
+	</style><link rel="alternate" type="application/rss+xml" title="Allen2030" href="https://blog.fis.ink/rss.xml"><script defer src="https://um.fis.ink/script.js" data-website-id="5fd2e60f-2f2f-4f42-b39d-fd33795f2683"></script><script>
+			// 控制台横幅
+			console.log('%cfishcpy', 'background: #007acc; color: white; padding: 4px 8px; font-weight: bold;');
+			console.log('%cblog', 'background: #007acc; color: white; padding: 4px 8px; font-weight: bold;');
+			console.log('%c────────────────────────────────────────', 'color: #007acc; font-weight: bold;');
+		</script><link rel="stylesheet" href="/_astro/Layout.CcrqmrpS.css">
+<link rel="stylesheet" href="/_astro/Layout.DSulWsr7.css">
+<style>.photo-gallery[data-astro-cid-zag3haex]{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;padding:0}@media(min-width:640px){.photo-gallery[data-astro-cid-zag3haex]{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}}@media(min-width:768px){.photo-gallery[data-astro-cid-zag3haex]{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}}@media(min-width:1024px){.photo-gallery[data-astro-cid-zag3haex]{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}}@media(min-width:1280px){.photo-gallery[data-astro-cid-zag3haex]{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}}.photo-item[data-astro-cid-zag3haex]{position:relative;overflow:hidden;border-radius:.75rem;transition:all .3s cubic-bezier(.4,0,.2,1)}.photo-item[data-astro-cid-zag3haex]:hover{transform:translateY(-2px)}.photo-item[data-astro-cid-zag3haex] img[data-astro-cid-zag3haex]{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+</style>
+<link rel="stylesheet" href="/_astro/_page_.DDTcyX3R.css">
+<link rel="stylesheet" href="/_astro/_page_.CttAoahr.css">
+<link rel="stylesheet" href="/_astro/about.F-s6qxEc.css">
+<style>.line-clamp-2[data-astro-cid-ofj6qmo7],.line-clamp-2[data-astro-cid-f2wmygel]{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}@media(max-width:768px){.album-card[data-astro-cid-f2wmygel]{margin-bottom:1rem}}
+.entertainment-card[data-astro-cid-tbo2rv7f]{transition:all .3s ease}.entertainment-card[data-astro-cid-tbo2rv7f].hidden{display:none}.filter-btn[data-astro-cid-tbo2rv7f].active{background:var(--btn-card-bg);border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}.line-clamp-1[data-astro-cid-tbo2rv7f]{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.line-clamp-2[data-astro-cid-tbo2rv7f]{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.line-clamp-3[data-astro-cid-tbo2rv7f]{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.essay-item[data-astro-cid-6rfjdx6s]{animation:fadeInUp .6s ease-out}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.essay-content[data-astro-cid-6rfjdx6s]{word-wrap:break-word;white-space:pre-wrap}
+input.svelte-1wah7ro:focus{outline:0}.search-panel.svelte-1wah7ro{max-height:calc(100vh - 100px);overflow-y:auto}.search-panel-glass.svelte-1wah7ro{background-color:#fffc!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}.dark .search-panel-glass.svelte-1wah7ro{background-color:#232323cc!important;border:1px solid rgba(255,255,255,.05)}.search-bar-glass.svelte-1wah7ro{background-color:#fff9;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}.search-bar-glass.svelte-1wah7ro:hover{background-color:#ffffffb3}.search-bar-glass.svelte-1wah7ro:focus-within{background-color:#fffc;border-color:#ffffff4d}.dark .search-bar-glass.svelte-1wah7ro{background-color:#23232399;border:1px solid rgba(255,255,255,.1)}.dark .search-bar-glass.svelte-1wah7ro:hover{background-color:#232323b3}.dark .search-bar-glass.svelte-1wah7ro:focus-within{background-color:#232323cc;border-color:#ffffff26}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k){-webkit-appearance:none;height:1.5rem;background-image:var(--color-selection-bar);transition:background-image .15s ease-in-out}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb:active{background:#fff9}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;border-width:0;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb:active{background:#fff9}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb:active{background:#fff9}
+</style><script type="module" src="/_astro/page.Cov4ExHD.js"></script></head> <body class=" min-h-screen transition  enable-banner" data-overlayscrollbars-initialize data-cursor-override="false" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <!-- 鼠标跟随效果元素 --> <div id="g-pointer-1" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></div> <div id="g-pointer-2" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></div> <!-- 页面背景视频 -->  <div class="fixed inset-0 backdrop-blur-md bg-black/30 z-[-1]" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></div> <div id="config-carrier" data-hue="260"></div>    <div id="top-row" class="z-50 pointer-events-none relative transition-all duration-700 w-full px-0"> <div id="navbar-wrapper" class="pointer-events-auto sticky top-0 transition-all"> <div id="navbar" class="z-50 onload-animation" data-astro-cid-5blmo7yk> <div class="absolute h-8 left-0 right-0 -top-8 backdrop-blur-md transition" style="background-color: color-mix(in srgb, var(--card-bg) calc(var(--card-opacity) * 100%), transparent);" data-astro-cid-5blmo7yk></div> <!-- used for onload animation --> <div class="!overflow-visible w-full h-[4.5rem] !rounded-t-none !rounded-b-[var(--radius-large)] navbar-glass" style="background-color: color-mix(in srgb, var(--card-bg) calc(var(--card-opacity) * 100%), transparent)" data-astro-cid-5blmo7yk> <div class="relative flex items-center px-4 h-full w-full" data-astro-cid-5blmo7yk> <!-- 左侧：网站标题 --> <a href="/" class="btn-plain scale-animation rounded-lg h-[3.25rem] px-5 font-bold active:scale-95 flex-shrink-0" data-astro-cid-5blmo7yk> <div class="flex flex-row text-[var(--primary)] items-center text-md" data-astro-cid-5blmo7yk> <img src="https://img.scdn.io/i/696e0f2b20919_1768820523.webp" alt="logo" class="w-6 h-6 mr-2" data-astro-cid-5blmo7yk>  Allen2030&#39;s Blog </div> </a> <!-- 中间：导航链接 --> <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2" data-astro-cid-5blmo7yk> <a aria-label="归档" href="/archive/" class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95" data-astro-cid-5blmo7yk> <div class="flex items-center" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-2" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:box-archive">   <use href="#ai:fa6-solid:box-archive"></use>  </svg> 归档  </div> </a><div class="relative group" data-astro-cid-5blmo7yk> <button class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 flex items-center" data-astro-cid-5blmo7yk> <div class="flex items-center" data-astro-cid-5blmo7yk> <svg width="1.25em" height="1em" viewBox="0 0 640 512" class="text-[1rem] mr-2" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:link">   <use href="#ai:fa6-solid:link"></use>  </svg> 友链 <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem] ml-1 transition-transform group-hover:rotate-180" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </div> </button> <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-[var(--card-bg)] rounded-xl shadow-lg border border-[var(--line-divider)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-row whitespace-nowrap max-h-[60vh] overflow-y-auto" data-astro-cid-5blmo7yk> <a href="/friends/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors rounded-l-xl " data-astro-cid-5blmo7yk> <svg width="1.25em" height="1em" viewBox="0 0 640 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:user-group">   <use href="#ai:fa6-solid:user-group"></use>  </svg> <span data-astro-cid-5blmo7yk>友链</span>  </a><a href="/circle/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  " data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:circle-nodes">   <use href="#ai:fa6-solid:circle-nodes"></use>  </svg> <span data-astro-cid-5blmo7yk>朋友圈</span>  </a><a href="/comments/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  rounded-r-xl" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:message">   <use href="#ai:fa6-solid:message"></use>  </svg> <span data-astro-cid-5blmo7yk>留言板</span>  </a> </div> </div><div class="relative group" data-astro-cid-5blmo7yk> <button class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 flex items-center" data-astro-cid-5blmo7yk> <div class="flex items-center" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-2" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:chart-line">   <use href="#ai:fa6-solid:chart-line"></use>  </svg> 其他 <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem] ml-1 transition-transform group-hover:rotate-180" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </div> </button> <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-[var(--card-bg)] rounded-xl shadow-lg border border-[var(--line-divider)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-row whitespace-nowrap max-h-[60vh] overflow-y-auto" data-astro-cid-5blmo7yk> <a href="https://status.allen2030.com/status/web" target="_blank" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors rounded-l-xl " data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:chart-line">   <use href="#ai:fa6-solid:chart-line"></use>  </svg> <span data-astro-cid-5blmo7yk>服务监控</span> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.75rem] text-black/[0.3] dark:text-white/[0.3] ml-1" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a><a href="https://monitor.allen2030.com" target="_blank" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  rounded-r-xl" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:chart-line">   <use href="#ai:fa6-solid:chart-line"></use>  </svg> <span data-astro-cid-5blmo7yk>节点监控</span> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.75rem] text-black/[0.3] dark:text-white/[0.3] ml-1" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a> </div> </div><div class="relative group" data-astro-cid-5blmo7yk> <button class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 flex items-center" data-astro-cid-5blmo7yk> <div class="flex items-center" data-astro-cid-5blmo7yk> <svg width="0.88em" height="1em" viewBox="0 0 448 512" class="text-[1rem] mr-2" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:user">   <use href="#ai:fa6-solid:user"></use>  </svg> 我的 <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem] ml-1 transition-transform group-hover:rotate-180" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </div> </button> <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-[var(--card-bg)] rounded-xl shadow-lg border border-[var(--line-divider)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-row whitespace-nowrap max-h-[60vh] overflow-y-auto" data-astro-cid-5blmo7yk> <a href="/album/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors rounded-l-xl " data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:photo-library">   <use href="#ai:material-symbols:photo-library"></use>  </svg> <span data-astro-cid-5blmo7yk>相册</span>  </a><a href="/essay/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  " data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:photo-camera">   <use href="#ai:material-symbols:photo-camera"></use>  </svg> <span data-astro-cid-5blmo7yk>瞬间</span>  </a><a href="/about/" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  " data-astro-cid-5blmo7yk> <svg width="0.88em" height="1em" viewBox="0 0 448 512" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:user">   <use href="#ai:fa6-solid:user"></use>  </svg> <span data-astro-cid-5blmo7yk>关于</span>  </a><a href="https://www.allen2030.com" target="_blank" class="flex items-center px-6 py-3 text-base !text-black dark:!text-gray-300 hover:!text-gray-900 dark:hover:!text-white hover:bg-[var(--btn-plain-bg-hover)] transition-colors  rounded-r-xl" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1rem] mr-3" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:home">   <use href="#ai:material-symbols:home"></use>  </svg> <span data-astro-cid-5blmo7yk>主页</span> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.75rem] text-black/[0.3] dark:text-white/[0.3] ml-1" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a> </div> </div> </div> <!-- 右侧：搜索和功能按钮 --> <div class="flex flex-shrink-0 absolute right-4" data-astro-cid-5blmo7yk> <!-- 搜索左侧图标链接 - 仅在桌面端显示 --> <div class="hidden md:flex" data-astro-cid-5blmo7yk> <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener noreferrer" aria-label="travellings" class="btn-plain scale-animation rounded-lg w-11 h-11 mr-2 active:scale-90 flex items-center justify-center" data-astro-cid-5blmo7yk> <svg width="0.88em" height="1em" viewBox="0 0 448 512" class="text-[1.25rem]" data-astro-cid-5blmo7yk="true" data-icon="fa6-solid:train-subway">   <use href="#ai:fa6-solid:train-subway"></use>  </svg> </a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" aria-label="rss" class="btn-plain scale-animation rounded-lg w-11 h-11 mr-2 active:scale-90 flex items-center justify-center" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem]" data-astro-cid-5blmo7yk="true" data-icon="ic:twotone-rss-feed">   <use href="#ai:ic:twotone-rss-feed"></use>  </svg> </a> </div> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event("astro:only"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="VDadk" component-url="/_astro/Search.CiSkGqVZ.js" component-export="default" renderer-url="/_astro/client.svelte.3LpAN2uU.js" props="{&quot;data-astro-cid-5blmo7yk&quot;:[0,true]}" ssr client="only" opts="{&quot;name&quot;:&quot;Search&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island>  <astro-island uid="Z2rX4wp" component-url="/_astro/LightDarkSwitch.CvGqrYM8.js" component-export="default" renderer-url="/_astro/client.svelte.3LpAN2uU.js" props="{&quot;data-astro-cid-5blmo7yk&quot;:[0,true]}" ssr client="only" opts="{&quot;name&quot;:&quot;LightDarkSwitch&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island> <button aria-label="Menu" name="Nav Menu" class="btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 md:!hidden" id="nav-menu-switch" data-astro-cid-5blmo7yk> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem]" data-astro-cid-5blmo7yk="true" data-icon="material-symbols:menu-rounded">   <use href="#ai:material-symbols:menu-rounded"></use>  </svg> </button> </div> <astro-island uid="Z1Qi38t" component-url="/_astro/DisplaySettings.BVAIwnNr.js" component-export="default" renderer-url="/_astro/client.svelte.3LpAN2uU.js" props="{&quot;data-astro-cid-5blmo7yk&quot;:[0,true]}" ssr client="only" opts="{&quot;name&quot;:&quot;DisplaySettings&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island> </div> </div> </div> <script type="module">function i(){localStorage.theme==="dark"?(document.documentElement.classList.remove("dark"),localStorage.theme="light"):(document.documentElement.classList.add("dark"),localStorage.theme="dark")}function s(){let e=document.getElementById("scheme-switch");e&&(e.onclick=function(){i()});let t=document.getElementById("display-settings-switch");t&&(t.onclick=function(){let n=document.getElementById("display-setting");n&&n.classList.toggle("float-panel-closed")})}s();const o=()=>{window.swup&&window.swup.hooks&&window.swup.hooks.on("page:view",s)};window.swup?o():document.addEventListener("swup:enable",o);</script> <script>(function(){const scriptUrl = "/pagefind/pagefind.js";
+
+async function loadPagefind() {
+    try {
+        const response = await fetch(scriptUrl, { method: 'HEAD' });
+        if (!response.ok) {
+            throw new Error(`Pagefind script not found: ${response.status}`);
+        }
+
+        const pagefind = await import(scriptUrl);
+
+        await pagefind.options({
+            excerptLength: 20
+        });
+
+        window.pagefind = pagefind;
+
+        document.dispatchEvent(new CustomEvent('pagefindready'));
+        console.log('Pagefind loaded and initialized successfully, event dispatched.');
+    } catch (error) {
+        console.error('Failed to load Pagefind:', error);
+        window.pagefind = {
+            search: () => Promise.resolve({ results: [] }),
+            options: () => Promise.resolve(),
+        };
+        document.dispatchEvent(new CustomEvent('pagefindloaderror'));
+        console.log('Pagefind load error, event dispatched.');
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPagefind);
+} else {
+    loadPagefind();
+}
+})();</script>  </div> </div>  <div id="banner-wrapper" class="absolute z-10 w-full transition duration-700 overflow-hidden" style="top: calc(-1 * var(--banner-height-extend))"> <div id="banner" class="object-cover h-full transition duration-700 opacity-0 scale-105 relative overflow-hidden"> <div class="w-full h-full overflow-hidden relative image-wrapper"> <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div> <!-- 加载占位符 --> <div class="image-placeholder absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800"> <div class="animate-pulse w-8 h-8 bg-neutral-300 dark:bg-neutral-600 rounded-full"></div> </div>  <img src="https://api.fis.ink/mc" alt="Banner image of the blog" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-300" style="object-position: center" loading="lazy"> </div> <script type="module">function a(){document.querySelectorAll(".image-wrapper").forEach(n=>{const e=n.querySelector(".image-content"),t=n.querySelector(".image-placeholder");if(e&&t){const o=()=>{e.classList.remove("opacity-0"),e.classList.add("opacity-100"),t.style.display="none"},r=()=>{t.innerHTML=`
+                        <div class="flex flex-col items-center justify-center text-neutral-400 dark:text-neutral-500">
+                            <svg class="w-8 h-8 mb-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-xs">图片加载失败</span>
+                        </div>
+                    `};e.complete&&e.naturalHeight!==0?o():(e.addEventListener("load",o),e.addEventListener("error",r))}})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",a):a();const s=()=>{window.swup&&window.swup.hooks&&window.swup.hooks.on("page:view",a)};window.swup?s():document.addEventListener("swup:enable",s);</script> <div class="absolute inset-0 flex items-center justify-center z-20"> <div class="text-center text-white px-6 py-4"> <h1 class="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg"> Hello👋 </h1> <p class="text-lg md:text-xl opacity-90 drop-shadow-md"> Welcome to my blog </p> </div> </div> </div> </div> <div class="absolute w-full z-30 pointer-events-none" style="top: calc(45vh - 3.5rem + 6rem)"> <!-- The pointer-events-none here prevent blocking the click event of the TOC --> <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto"> <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-rows-[auto_1fr_auto] md:grid-rows-[auto] mx-auto gap-4 px-0 md:px-4 grid-cols-[17.5rem_auto]"> <!-- Banner image credit -->  <div id="sidebar" class="mb-4 row-start-2 row-end-3 col-span-2 md:row-start-1 md:row-end-2 md:col-span-1 md:max-w-[17.5rem] onload-animation w-full"><div class="flex flex-col w-full gap-4 mb-4"><div class="card-base card-glass p-3"> <a aria-label="Go to About Page" href="/about/" class="group block relative mx-auto mt-1 lg:mx-0 lg:mt-0 mb-3
+       w-48 md:w-full overflow-hidden rounded-xl active:scale-95"> <div class="absolute transition pointer-events-none group-hover:bg-black/30 group-active:bg-black/50
+        w-full h-full z-50 flex items-center justify-center"> <svg width="1.13em" height="1em" class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-5xl" data-icon="fa6-regular:address-card">   <symbol id="ai:fa6-regular:address-card" viewBox="0 0 576 512"><path fill="currentColor" d="M512 80c8.8 0 16 7.2 16 16v320c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V96c0-8.8 7.2-16 16-16zM64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm144 224a64 64 0 1 0 0-128a64 64 0 1 0 0 128m-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16h192c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80zm200-144c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></symbol><use href="#ai:fa6-regular:address-card"></use>  </svg> </div> <div class="mx-auto lg:w-full h-full lg:mt-0  overflow-hidden relative image-wrapper"> <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div> <!-- 加载占位符 --> <div class="image-placeholder absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800"> <div class="animate-pulse w-8 h-8 bg-neutral-300 dark:bg-neutral-600 rounded-full"></div> </div>  <img src="https://img.scdn.io/i/69451d727217f_1766137202.png" alt="Profile Image of the Author" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-300" style="object-position: center" loading="lazy"> </div>  </a> <div class="px-2"> <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">Allen2030</div> <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div> <div class="text-center text-neutral-600 dark:text-neutral-400 mb-2.5 transition">摸摸猪头，快乐不愁</div> <div class="flex gap-2 justify-center mb-3"> <a rel="me" aria-label="RSS" href="/rss.xml" target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90"> <svg width="1em" height="1em" class="text-[1.5rem]" data-icon="ic:twotone-rss-feed">   <symbol id="ai:ic:twotone-rss-feed" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18" fill="currentColor"/><path fill="currentColor" d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56m0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9"/></symbol><use href="#ai:ic:twotone-rss-feed"></use>  </svg> </a><a rel="me" aria-label="GitHub" href="https://github.com/duancyblog" target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90"> <svg width="0.97em" height="1em" class="text-[1.5rem]" data-icon="fa6-brands:github">   <symbol id="ai:fa6-brands:github" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6c-3.3.3-5.6-1.3-5.6-3.6c0-2 2.3-3.6 5.2-3.6c3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9c2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9c.3 2 2.9 3.3 5.9 2.6c2.9-.7 4.9-2.6 4.6-4.6c-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2c12.8 2.3 17.3-5.6 17.3-12.1c0-6.2-.3-40.4-.3-61.4c0 0-70 15-84.7-29.8c0 0-11.4-29.1-27.8-36.6c0 0-22.9-15.7 1.6-15.4c0 0 24.9 2 38.6 25.8c21.9 38.6 58.6 27.5 72.9 20.9c2.3-16 8.8-27.1 16-33.7c-55.9-6.2-112.3-14.3-112.3-110.5c0-27.5 7.6-41.3 23.6-58.9c-2.6-6.5-11.1-33.3 2.6-67.9c20.9-6.5 69 27 69 27c20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27c13.7 34.7 5.2 61.4 2.6 67.9c16 17.7 25.8 31.5 25.8 58.9c0 96.5-58.9 104.2-114.8 110.5c9.2 7.9 17 22.9 17 46.4c0 33.7-.3 75.4-.3 83.6c0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252C496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2c1.6 1.6 3.9 2.3 5.2 1c1.3-1 1-3.3-.7-5.2c-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9c1.6 1 3.6.7 4.3-.7c.7-1.3-.3-2.9-2.3-3.9c-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2c2.3 2.3 5.2 2.6 6.5 1c1.3-1.3.7-4.3-1.3-6.2c-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2c-1.4-2.3-4-3.3-5.6-2"/></symbol><use href="#ai:fa6-brands:github"></use>  </svg> </a>  </div> <!-- 统计信息 --> <div class="grid gap-2 text-center text-sm grid-cols-3"> <div class="p-2 transition"> <div class="font-bold text-lg text-[var(--primary)]">35</div> <div class="text-neutral-500 dark:text-neutral-400">文章</div> </div> <div class="p-2 transition"> <div class="font-bold text-lg text-[var(--primary)]">51</div> <div class="text-neutral-500 dark:text-neutral-400">标签</div> </div> <div class="p-2 transition"> <div class="font-bold text-lg text-[var(--primary)]">30</div> <div class="text-neutral-500 dark:text-neutral-400">分类</div> </div> </div> </div> </div></div><div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4"><widget-layout data-id="categories" data-is-collapsed="true" class="pb-4 card-base card-shadow card-glass onload-animation" style="animation-delay: 150ms; --collapsedHeight: 7.5rem;" data-astro-cid-ucso7hve="true"> <div class="font-bold transition text-lg text-neutral-800 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">分类</div> <div id="categories" class="collapse-wrapper px-4 overflow-hidden collapsed" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <a href="/archive/?category=AI" aria-label="View all posts in the AI category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> AI </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=AI%E6%91%98%E8%A6%81" aria-label="View all posts in the AI摘要 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> AI摘要 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=API" aria-label="View all posts in the API category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> API </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=Aplayer" aria-label="View all posts in the Aplayer category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> Aplayer </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=cf%20X%20eo" aria-label="View all posts in the cf X eo category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> cf X eo </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=cloudflare" aria-label="View all posts in the cloudflare category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> cloudflare </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=Examples" aria-label="View all posts in the Examples category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> Examples </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=trae" aria-label="View all posts in the trae category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> trae </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=Uptime%20Kuma" aria-label="View all posts in the Uptime Kuma category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> Uptime Kuma </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E4%B8%AA%E4%BA%BA%E8%99%9A%E6%8B%9F%E5%A4%87%E6%A1%88%E7%B3%BB%E7%BB%9F" aria-label="View all posts in the 个人虚拟备案系统 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 个人虚拟备案系统 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E4%B8%BB%E9%A2%98" aria-label="View all posts in the 主题 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 主题 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 2 </div> </div> </button> </a><a href="/archive/?category=%E4%B8%BB%E9%A2%98%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E9%A2%84%E8%A7%88" aria-label="View all posts in the 主题音乐播放器预览 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 主题音乐播放器预览 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%88%86%E4%BA%AB%E7%88%B1%E5%9B%BD%E5%9B%BE%E7%89%87" aria-label="View all posts in the 分享爱国图片 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 分享爱国图片 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%8A%A0%E6%B2%B9" aria-label="View all posts in the 加油 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 加油 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%8D%81%E5%B9%B4%E4%B9%8B%E7%BA%A6" aria-label="View all posts in the 十年之约 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 十年之约 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%8D%9A%E5%AE%A2" aria-label="View all posts in the 博客 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 博客 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%93%AA%E5%90%92%E7%9B%91%E6%8E%A7" aria-label="View all posts in the 哪吒监控 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 哪吒监控 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%A4%A7%E5%8D%A1%E7%89%87" aria-label="View all posts in the 大卡片 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 大卡片 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E5%AE%B6%E6%A0%A1" aria-label="View all posts in the 家校 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 家校 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 2 </div> </div> </button> </a><a href="/archive/?category=%E5%B0%8F%E7%B1%B3" aria-label="View all posts in the 小米 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 小米 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E6%88%91%E5%90%8D%E5%AD%97%E7%9A%84%E7%94%B1%E6%9D%A5" aria-label="View all posts in the 我名字的由来 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 我名字的由来 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E6%9E%81%E5%9F%9F" aria-label="View all posts in the 极域 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 极域 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E6%B5%8B%E9%80%9F%E7%AB%99" aria-label="View all posts in the 测速站 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 测速站 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E6%B8%B8%E6%88%8F" aria-label="View all posts in the 游戏 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 游戏 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E6%BC%AB%E5%B1%95" aria-label="View all posts in the 漫展 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 漫展 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E7%A0%94%E5%AD%A6" aria-label="View all posts in the 研学 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 研学 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E7%AB%99%E7%82%B9%E5%8E%86%E7%A8%8B" aria-label="View all posts in the 站点历程 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 站点历程 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E8%A2%AB%E6%94%BB%E5%87%BB" aria-label="View all posts in the 被攻击 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 被攻击 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a><a href="/archive/?category=%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98" aria-label="View all posts in the 解决问题 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 解决问题 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 4 </div> </div> </button> </a><a href="/archive/?category=%E9%9D%9E%E4%BA%BA%E5%93%89" aria-label="View all posts in the 非人哉 category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> 非人哉 </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 1 </div> </div> </button> </a> </div> <div class="expand-btn px-4 mt-2 -mb-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <button class="btn-plain rounded-lg w-full h-9" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <svg width="1em" height="1em" class="text-[1.75rem]" data-astro-cid-ucso7hve="true" data-icon="material-symbols:more-horiz">   <symbol id="ai:material-symbols:more-horiz" viewBox="0 0 24 24"><path fill="currentColor" d="M6 14q-.825 0-1.412-.587T4 12t.588-1.412T6 10t1.413.588T8 12t-.587 1.413T6 14m6 0q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m6 0q-.825 0-1.412-.587T16 12t.588-1.412T18 10t1.413.588T20 12t-.587 1.413T18 14"/></symbol><use href="#ai:material-symbols:more-horiz"></use>  </svg> 更多 </div> </button> </div> </widget-layout>  <script type="module">class n extends HTMLElement{constructor(){super();const o=this.dataset.id,e=this.querySelector(".expand-btn"),t=this.querySelector(`#${o}`),i=this.querySelector(".font-bold");let s=this.dataset.isCollapsed==="true";const l=()=>{if(e){const c=e.querySelector(".text-\\[var\\(--primary\\)\\]");c&&(c.innerHTML=s?'<svg class="text-[1.75rem] inline-block" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/></svg> 更多':'<svg class="text-[1.75rem] inline-block" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/></svg> 收起')}};s&&l(),e?.addEventListener("click",()=>{s=!s,this.dataset.isCollapsed=String(s),s?(t.classList.add("collapsed"),e.classList.remove("hidden")):(t.classList.remove("collapsed"),e.classList.remove("hidden")),l()}),(this.dataset.isCollapsed==="true"||!s)&&(i?.addEventListener("click",()=>{e&&e.click()}),i?.classList.add("cursor-pointer"))}}customElements.get("widget-layout")||customElements.define("widget-layout",n);</script><widget-layout data-id="tags" data-is-collapsed="true" class="pb-4 card-base card-shadow card-glass onload-animation" style="animation-delay: 200ms; --collapsedHeight: 7.5rem;" data-astro-cid-ucso7hve="true"> <div class="font-bold transition text-lg text-neutral-800 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">标签</div> <div id="tags" class="collapse-wrapper px-4 overflow-hidden collapsed" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">  <div class="flex gap-2 flex-wrap"> <a href="/archive/?tag=AI" aria-label="View all posts with the AI tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  AI </a><a href="/archive/?tag=AI%E6%91%98%E8%A6%81" aria-label="View all posts with the AI摘要 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  AI摘要 </a><a href="/archive/?tag=API" aria-label="View all posts with the API tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  API </a><a href="/archive/?tag=Aplayer" aria-label="View all posts with the Aplayer tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Aplayer </a><a href="/archive/?tag=Blogging" aria-label="View all posts with the Blogging tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Blogging </a><a href="/archive/?tag=CDN" aria-label="View all posts with the CDN tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  CDN </a><a href="/archive/?tag=cloudflare" aria-label="View all posts with the cloudflare tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  cloudflare </a><a href="/archive/?tag=Demo" aria-label="View all posts with the Demo tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Demo </a><a href="/archive/?tag=docker" aria-label="View all posts with the docker tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  docker </a><a href="/archive/?tag=EO" aria-label="View all posts with the EO tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  EO </a><a href="/archive/?tag=furry" aria-label="View all posts with the furry tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  furry </a><a href="/archive/?tag=ICP" aria-label="View all posts with the ICP tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  ICP </a><a href="/archive/?tag=Link%20Card" aria-label="View all posts with the Link Card tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Link Card </a><a href="/archive/?tag=Markdown" aria-label="View all posts with the Markdown tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Markdown </a><a href="/archive/?tag=pad" aria-label="View all posts with the pad tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  pad </a><a href="/archive/?tag=trae" aria-label="View all posts with the trae tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  trae </a><a href="/archive/?tag=Uptime%20Kuma" aria-label="View all posts with the Uptime Kuma tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Uptime Kuma </a><a href="/archive/?tag=%E4%B8%BB%E9%A2%98" aria-label="View all posts with the 主题 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  主题 </a><a href="/archive/?tag=%E5%88%86%E4%BA%AB" aria-label="View all posts with the 分享 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  分享 </a><a href="/archive/?tag=%E5%8A%A0%E6%B2%B9" aria-label="View all posts with the 加油 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  加油 </a><a href="/archive/?tag=%E5%8D%81%E5%B9%B4%E4%B9%8B%E7%BA%A6" aria-label="View all posts with the 十年之约 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  十年之约 </a><a href="/archive/?tag=%E5%8D%9A%E5%AE%A2" aria-label="View all posts with the 博客 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  博客 </a><a href="/archive/?tag=%E5%90%8D%E5%AD%97" aria-label="View all posts with the 名字 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  名字 </a><a href="/archive/?tag=%E5%93%AA%E5%90%92%E7%9B%91%E6%8E%A7" aria-label="View all posts with the 哪吒监控 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  哪吒监控 </a><a href="/archive/?tag=%E5%A4%A7%E5%8D%A1%E7%89%87" aria-label="View all posts with the 大卡片 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  大卡片 </a><a href="/archive/?tag=%E5%AE%89%E5%85%A8" aria-label="View all posts with the 安全 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  安全 </a><a href="/archive/?tag=%E5%AE%89%E7%9F%A5%E9%B1%BC" aria-label="View all posts with the 安知鱼 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  安知鱼 </a><a href="/archive/?tag=%E5%AE%B6%E6%A0%A1" aria-label="View all posts with the 家校 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  家校 </a><a href="/archive/?tag=%E5%B0%8F%E7%B1%B3" aria-label="View all posts with the 小米 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  小米 </a><a href="/archive/?tag=%E5%B9%B3%E6%9D%BF" aria-label="View all posts with the 平板 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  平板 </a><a href="/archive/?tag=%E5%B9%BF%E5%91%8A" aria-label="View all posts with the 广告 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  广告 </a><a href="/archive/?tag=%E6%9E%81%E5%9F%9F" aria-label="View all posts with the 极域 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  极域 </a><a href="/archive/?tag=%E6%B0%B4%E6%96%87%E7%AB%A0" aria-label="View all posts with the 水文章 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  水文章 </a><a href="/archive/?tag=%E6%B1%9F%E8%A5%BF" aria-label="View all posts with the 江西 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  江西 </a><a href="/archive/?tag=%E6%B5%8B%E9%80%9F" aria-label="View all posts with the 测速 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  测速 </a><a href="/archive/?tag=%E6%B8%B8%E6%88%8F" aria-label="View all posts with the 游戏 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  游戏 </a><a href="/archive/?tag=%E6%BC%AB%E5%B1%95" aria-label="View all posts with the 漫展 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  漫展 </a><a href="/archive/?tag=%E7%94%B5%E5%BD%B1" aria-label="View all posts with the 电影 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  电影 </a><a href="/archive/?tag=%E7%9B%91%E6%8E%A7" aria-label="View all posts with the 监控 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  监控 </a><a href="/archive/?tag=%E7%A0%94%E5%AD%A6" aria-label="View all posts with the 研学 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  研学 </a><a href="/archive/?tag=%E7%A0%B4%E8%A7%A3" aria-label="View all posts with the 破解 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  破解 </a><a href="/archive/?tag=%E7%A6%8F%E7%91%9E" aria-label="View all posts with the 福瑞 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  福瑞 </a><a href="/archive/?tag=%E7%AB%99%E7%82%B9%E5%8E%86%E7%A8%8B" aria-label="View all posts with the 站点历程 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  站点历程 </a><a href="/archive/?tag=%E7%BD%91%E7%AB%99" aria-label="View all posts with the 网站 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  网站 </a><a href="/archive/?tag=%E7%BE%8E%E5%8C%96" aria-label="View all posts with the 美化 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  美化 </a><a href="/archive/?tag=%E8%99%9A%E6%8B%9F%E5%A4%87%E6%A1%88" aria-label="View all posts with the 虚拟备案 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  虚拟备案 </a><a href="/archive/?tag=%E8%A2%AB%E6%94%BB%E5%87%BB" aria-label="View all posts with the 被攻击 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  被攻击 </a><a href="/archive/?tag=%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98" aria-label="View all posts with the 解决问题 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  解决问题 </a><a href="/archive/?tag=%E9%9D%9E%E4%BA%BA%E5%93%89" aria-label="View all posts with the 非人哉 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  非人哉 </a><a href="/archive/?tag=%E9%9F%B3%E4%B9%90" aria-label="View all posts with the 音乐 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  音乐 </a><a href="/archive/?tag=%E9%A2%84%E8%A7%88" aria-label="View all posts with the 预览 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  预览 </a> </div>  </div> <div class="expand-btn px-4 mt-2 -mb-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <button class="btn-plain rounded-lg w-full h-9" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.75rem]" data-astro-cid-ucso7hve="true" data-icon="material-symbols:more-horiz">   <use href="#ai:material-symbols:more-horiz"></use>  </svg> 更多 </div> </button> </div> </widget-layout>  <widget-layout data-id="hitokoto" data-is-collapsed="undefined" class="pb-4 card-base card-shadow card-glass onload-animation" style="animation-delay: 300ms; " data-astro-cid-ucso7hve="true"> <div class="font-bold transition text-lg text-neutral-800 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-astro-cid-ucso7hve style="">一言</div> <div id="hitokoto" class="collapse-wrapper px-4 overflow-hidden" data-astro-cid-ucso7hve style="">  <div class="hitokoto-container" data-astro-cid-qot46ah7> <div class="hitokoto-content" data-astro-cid-qot46ah7> <div class="hitokoto-text text-neutral-700 dark:text-neutral-300 text-sm leading-relaxed mb-3" id="hitokoto-text" data-astro-cid-qot46ah7> <div class="flex items-center justify-center py-4" data-astro-cid-qot46ah7> <svg width="1em" height="1em" class="animate-spin text-[var(--primary)] text-lg" data-astro-cid-qot46ah7="true" data-icon="material-symbols:refresh">   <symbol id="ai:material-symbols:refresh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20"/></symbol><use href="#ai:material-symbols:refresh"></use>  </svg> <span class="ml-2 text-neutral-500 dark:text-neutral-400" data-astro-cid-qot46ah7>加载中...</span> </div> </div> </div> </div>  </div>  </widget-layout>   <script type="module">window.hitokotoCache=window.hitokotoCache||{data:null,timestamp:0,isLoading:!1,CACHE_DURATION:300*1e3};function i(){const e=document.getElementById("hitokoto-text");if(!e)return;function a(t){e&&(e.innerHTML=`
+                    <div class="flex items-center justify-center py-4">
+                        <svg class="animate-spin w-4 h-4 mr-2 text-[var(--primary)]" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="text-neutral-500 dark:text-neutral-400">加载中...</span>
+                    </div>
+                `)}function n(t){e&&(e.innerHTML=`<p class="italic leading-relaxed">${t}</p>`)}function s(t){e&&(e.innerHTML=`
+                    <div class="flex items-center justify-center py-4 text-red-500 dark:text-red-400">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        ${t}
+                    </div>
+                `)}async function l(){const t=window.hitokotoCache,r=Date.now();if(t.data&&r-t.timestamp<t.CACHE_DURATION){n(t.data);return}if(t.isLoading){a();return}t.isLoading=!0,a();try{const o=await(await fetch("https://v2.xxapi.cn/api/yiyan?type=hitokoto")).json();o.code===200&&o.data?(t.data=o.data,t.timestamp=r,n(o.data)):s("获取一言失败")}catch(c){console.error("获取一言时出错:",c),s("网络连接失败")}finally{t.isLoading=!1}}l()}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i):i();const d=()=>{window.swup&&window.swup.hooks&&window.swup.hooks.on("page:view",i)};window.swup?d():document.addEventListener("swup:enable",d);</script> </div></div> <main id="swup-container" class="transition-swup-fade overflow-hidden col-span-2 md:col-span-1"> <div id="content-wrapper" class="onload-animation"> <!-- the overflow-hidden here prevent long text break the layout--> <!-- make id different from windows.swup global property --> <!-- Essay Carousel - only show on home page -->   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32 mb-8"> <div class="card-base z-10 px-9 py-6 relative w-full"> <!-- 返回按钮和标题 --> <div class="flex items-center gap-4 mb-6"> <a href="/album/" class="btn-card w-10 h-10 rounded-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200"> <svg width="1em" height="1em" class="text-xl" data-icon="material-symbols:arrow-back">   <symbol id="ai:material-symbols:arrow-back" viewBox="0 0 24 24"><path fill="currentColor" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></symbol><use href="#ai:material-symbols:arrow-back"></use>  </svg> </a> <div> <h1 class="text-3xl font-bold text-neutral-800 dark:text-neutral-200">城市建筑</h1> <p class="text-neutral-600 dark:text-neutral-400 mt-2 text-base">现代都市的建筑之美</p> </div> </div> <!-- 相册信息 --> <div class="flex flex-wrap items-center gap-4 mb-6 pb-4 border-b border-[var(--line-divider)]"> <!-- 图片数量 --> <div class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"> <svg width="1em" height="1em" class="text-lg" data-icon="material-symbols:photo-camera">   <symbol id="ai:material-symbols:photo-camera" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.5q1.875 0 3.188-1.312T16.5 13t-1.312-3.187T12 8.5T8.813 9.813T7.5 13t1.313 3.188T12 17.5m0-2q-1.05 0-1.775-.725T9.5 13t.725-1.775T12 10.5t1.775.725T14.5 13t-.725 1.775T12 15.5M4 21q-.825 0-1.412-.587T2 19V7q0-.825.588-1.412T4 5h3.15L9 3h6l1.85 2H20q.825 0 1.413.588T22 7v12q0 .825-.587 1.413T20 21z"/></symbol><use href="#ai:material-symbols:photo-camera"></use>  </svg> <span>2 张图片</span> </div> <!-- 创建时间 --> <div class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400"> <svg width="1em" height="1em" class="text-lg" data-icon="material-symbols:calendar-today">   <symbol id="ai:material-symbols:calendar-today" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588T21 6v14q0 .825-.587 1.413T19 22zm0-2h14V10H5z"/></symbol><use href="#ai:material-symbols:calendar-today"></use>  </svg> <span>2025/8/29</span> </div> <!-- 标签 --> <div class="flex flex-wrap gap-2"> <span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm rounded-full hover:bg-[var(--btn-card-bg-hover)] transition-colors">
+#建筑 </span><span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm rounded-full hover:bg-[var(--btn-card-bg-hover)] transition-colors">
+#城市 </span><span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm rounded-full hover:bg-[var(--btn-card-bg-hover)] transition-colors">
+#现代 </span> </div> </div> <!-- 图片网格 --> <div class="photo-gallery mb-8" data-astro-cid-zag3haex> <a href="https://cdn.fis.ink/img/2025/07/24/6881fcb459da3.webp" class="photo-item group relative overflow-hidden rounded-xl bg-[var(--card-bg)] shadow-sm border border-[var(--line-divider)] hover:shadow-lg transition-all duration-300 cursor-pointer block" data-pswp-width="auto" data-pswp-height="auto" data-astro-cid-zag3haex> <div class="aspect-[4/3] overflow-hidden" data-astro-cid-zag3haex> <img src="https://cdn.fis.ink/img/2025/07/24/6881fcb459da3.webp" alt="摩天大楼" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" data-astro-cid-zag3haex> </div> <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-astro-cid-zag3haex></div> <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300" data-astro-cid-zag3haex> <h4 class="text-sm font-medium mb-1 drop-shadow-sm" data-astro-cid-zag3haex>摩天大楼</h4> <p class="text-xs mb-2 line-clamp-2 opacity-90 drop-shadow-sm" data-astro-cid-zag3haex>城市中心的现代建筑群</p> <div class="flex flex-wrap gap-1 mb-2" data-astro-cid-zag3haex> <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-xs border border-white/30" data-astro-cid-zag3haex> 摩天楼 </span><span class="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-xs border border-white/30" data-astro-cid-zag3haex> 现代建筑 </span> </div> <div class="text-xs opacity-75 drop-shadow-sm" data-astro-cid-zag3haex> 2025/8/29 </div> </div> </a><a href="https://cdn.fis.ink/img/2025/07/24/6881f86b1baf2.webp" class="photo-item group relative overflow-hidden rounded-xl bg-[var(--card-bg)] shadow-sm border border-[var(--line-divider)] hover:shadow-lg transition-all duration-300 cursor-pointer block" data-pswp-width="auto" data-pswp-height="auto" data-astro-cid-zag3haex> <div class="aspect-[4/3] overflow-hidden" data-astro-cid-zag3haex> <img src="https://cdn.fis.ink/img/2025/07/24/6881f86b1baf2.webp" alt="古典建筑" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" data-astro-cid-zag3haex> </div> <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-astro-cid-zag3haex></div> <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300" data-astro-cid-zag3haex> <h4 class="text-sm font-medium mb-1 drop-shadow-sm" data-astro-cid-zag3haex>古典建筑</h4> <p class="text-xs mb-2 line-clamp-2 opacity-90 drop-shadow-sm" data-astro-cid-zag3haex>历史悠久的古典建筑风格</p> <div class="flex flex-wrap gap-1 mb-2" data-astro-cid-zag3haex> <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-xs border border-white/30" data-astro-cid-zag3haex> 古典 </span><span class="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-xs border border-white/30" data-astro-cid-zag3haex> 历史建筑 </span> </div> <div class="text-xs opacity-75 drop-shadow-sm" data-astro-cid-zag3haex> 2025/8/28 </div> </div> </a> </div>  </div> </div>  <div class="card-base p-6 mb-4 mt-4"><!-- 简化了配置部分的代码，实际上可以把配置文件统一写入fuwari的配置文件统一读取 --><div id="twikoo"></div> <script>(function(){const config = {"el":"#twikoo","path":"/album/architecture/","envId":"https://twikoo.allen2030.com","lang":"zh-CN","visitor":true};
+
+  function loadTwikoo() {
+    console.log('loadTwikoo function called');
+    // 不输出包含敏感信息的配置
+    const script = document.createElement("script");
+    script.src =
+      "https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js";
+    script.defer = true;
+    script.onload = () => {
+      console.log('Twikoo script loaded, initializing...');
+      // 不输出包含敏感信息的配置
+    
+      // 尝试多种环境ID格式// 在现有的脚本中添加以下修复代码
+
+// 修复表情包定位和点击问题
+function fixTwikooEmoji() {
+  // 等待 Twikoo 完全加载
+  const checkExist = setInterval(function() {
+    const buttons = document.querySelectorAll('#twikoo .tk-emoji-btn');
+    if (buttons && buttons.length) {
+      clearInterval(checkExist);
+
+      // 注入样式（id 防重复）
+      if (!document.getElementById('twikoo-emoji-fix-style')) {
+        const style = document.createElement('style');
+        style.id = 'twikoo-emoji-fix-style';
+        style.textContent = `
+          #twikoo .tk-emoji-popover {
+            position: fixed !important;
+            z-index: 99999 !important;
+            transform: none !important;
+            display: none !important;
+            will-change: transform, top, left;
+          }
+
+          #twikoo .tk-emoji-popover.tk-emoji-popover-show {
+            display: block !important;
+          }
+
+          /* 避免父容器溢出剪裁 */
+          #twikoo {
+            overflow: visible !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // 用于重定位的辅助函数
+      const positionPopover = (btn, popover) => {
+        if (!btn || !popover) return;
+        const rect = btn.getBoundingClientRect();
+        const left = Math.max(8, rect.left);
+        const top = rect.bottom + 6; // 与按钮下方稍微留隙
+        popover.style.left = left + 'px';
+        popover.style.top = top + 'px';
+      };
+
+      // 处理每个按钮，确保点击时定位到视口
+      buttons.forEach((btn) => {
+        // 去重，避免重复绑定
+        if (btn.__twikooEmojiBound) return;
+        btn.__twikooEmojiBound = true;
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const popover = document.querySelector('#twikoo .tk-emoji-popover');
+          if (!popover) return;
+
+          // 切换显示
+          const shown = popover.classList.toggle('tk-emoji-popover-show');
+          if (shown) {
+            positionPopover(btn, popover);
+          }
+        });
+      });
+
+      // 点击空白区域关闭
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('#twikoo .tk-emoji-btn') && !e.target.closest('#twikoo .tk-emoji-popover')) {
+          const popover = document.querySelector('#twikoo .tk-emoji-popover');
+          if (popover) popover.classList.remove('tk-emoji-popover-show');
+        }
+      });
+
+      // 在滚动或调整大小时重定位当前打开的 popover
+      const repositionIfShown = () => {
+        const popover = document.querySelector('#twikoo .tk-emoji-popover');
+        if (!popover || !popover.classList.contains('tk-emoji-popover-show')) return;
+        // 找到与之对应的按钮（靠近左上角的按钮）
+        const buttons = Array.from(document.querySelectorAll('#twikoo .tk-emoji-btn'));
+        let closest = null;
+        let minDist = Infinity;
+        const popRect = popover.getBoundingClientRect();
+        buttons.forEach((b) => {
+          const r = b.getBoundingClientRect();
+          const dx = r.left - popRect.left;
+          const dy = r.top - popRect.top;
+          const d = Math.hypot(dx, dy);
+          if (d < minDist) { minDist = d; closest = b; }
+        });
+        if (closest) positionPopover(closest, popover);
+      };
+
+      window.addEventListener('resize', repositionIfShown);
+      window.addEventListener('scroll', repositionIfShown, { passive: true });
+    }
+  }, 100);
+}
+
+// 在 DOM 加载完成后调用修复函数
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(fixTwikooEmoji, 2000); // 给 Twikoo 更多时间初始化
+});
+
+// 在 Twikoo 初始化完成后再执行一次
+document.addEventListener("loadComment", () => {
+  setTimeout(fixTwikooEmoji, 1000);
+}, { once: true });
+      const originalEnvId = config.envId;
+      const envIdWithoutProtocol = originalEnvId ? originalEnvId.replace(/^https?:\/\//, '') : '';
+    
+      // 尝试使用原始URL
+      try {
+        twikoo.init({
+          ...config,
+          envId: originalEnvId
+        });
+      } catch (error) {
+        // 尝试使用不带协议的URL
+        try {
+          twikoo.init({
+            ...config,
+            envId: envIdWithoutProtocol
+          });
+        } catch (error) {
+          // 最后尝试使用一个简单的字符串
+          try {
+            // 从原始envId中提取域名部分作为简单ID
+            const simpleEnvId = originalEnvId ? 
+              originalEnvId.replace(/^https?:\/\//, '').split('.')[0] : 
+              'twikoo-env';
+            
+            twikoo.init({
+              ...config,
+              envId: simpleEnvId
+            });
+          } catch (error) {
+            // 初始化失败，静默处理
+          }
+        }
+      }
+    
+      // 全面改进的移动端点击处理
+      // 存储触摸开始的信息
+      let touchStartInfo = {
+        target: null,
+        x: 0,
+        y: 0,
+        time: 0,
+        isScrolling: false
+      };
+      
+      // 添加触摸移动事件处理
+      const handleTouchMove = function(e) {
+        if (!touchStartInfo.target) return;
+        
+        // 计算移动距离
+        const touchMoveX = e.touches[0].clientX;
+        const touchMoveY = e.touches[0].clientY;
+        const moveDistance = Math.sqrt(
+          Math.pow(touchMoveX - touchStartInfo.x, 2) + 
+          Math.pow(touchMoveY - touchStartInfo.y, 2)
+        );
+        
+        // 如果移动距离超过阈值，标记为滑动操作
+        if (moveDistance > 10) {
+          touchStartInfo.isScrolling = true;
+        }
+      };
+      
+      const preventDefaultForTwikoo = function(e) {
+        const target = e.target.closest('#twikoo button, #twikoo a');
+        if (target) {
+          // 特别处理href="#"的链接，这些链接会导致页面跳转到顶部
+          if (target.tagName === 'A' && 
+              (target.getAttribute('href') === '#' || 
+               target.getAttribute('href') === '' || 
+               target.getAttribute('href') === 'javascript:void(0)' ||
+               target.getAttribute('href') === 'javascript:;')) {
+            // 替换href属性，防止导航到页面顶部
+            if (target.getAttribute('original-href') === null) {
+              target.setAttribute('original-href', target.getAttribute('href'));
+            }
+            target.setAttribute('href', 'javascript:void(0);');
+          }
+          
+          // 处理触摸开始事件
+          if (e.type === 'touchstart') {
+            // 记录触摸开始的目标元素和位置
+            touchStartInfo.target = target;
+            touchStartInfo.x = e.touches[0].clientX;
+            touchStartInfo.y = e.touches[0].clientY;
+            touchStartInfo.time = Date.now();
+            touchStartInfo.isScrolling = false;
+            
+            // 只对空链接阻止默认行为，允许按钮正常工作
+            if (target.tagName === 'A' && 
+                (target.getAttribute('href') === '#' || 
+                 target.getAttribute('href') === '' || 
+                 target.getAttribute('href') === 'javascript:void(0)' ||
+                 target.getAttribute('href') === 'javascript:;')) {
+              e.preventDefault();
+            }
+          }
+          
+          // 处理触摸结束事件
+          if (e.type === 'touchend') {
+            // 如果被标记为滑动操作，不触发点击
+            if (touchStartInfo.isScrolling) {
+              // 重置触摸信息
+              touchStartInfo = {
+                target: null,
+                x: 0,
+                y: 0,
+                time: 0,
+                isScrolling: false
+              };
+              return;
+            }
+            
+            // 计算触摸的移动距离和时间
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndTime = Date.now();
+            
+            const moveDistance = Math.sqrt(
+              Math.pow(touchEndX - touchStartInfo.x, 2) + 
+              Math.pow(touchEndY - touchStartInfo.y, 2)
+            );
+            const touchDuration = touchEndTime - touchStartInfo.time;
+            
+            // 检查触摸结束时的元素是否与开始时相同
+            const isSameTarget = touchStartInfo.target === target;
+            
+            // 设置阈值：移动距离小于10px且触摸时间小于300ms视为点击
+            const isValidTap = moveDistance < 10 && touchDuration < 300;
+            
+            // 只有当触摸结束时的元素与开始时相同，且移动距离小于阈值时，才触发点击
+            if (isSameTarget && isValidTap) {
+              // 只对空链接阻止默认行为，允许按钮正常工作
+              if (target.tagName === 'A' && 
+                  (target.getAttribute('href') === '#' || 
+                   target.getAttribute('href') === '' || 
+                   target.getAttribute('href') === 'javascript:void(0)' ||
+                   target.getAttribute('href') === 'javascript:;')) {
+                e.preventDefault();
+                
+                // 如果链接有onclick处理函数，手动触发它
+                if (typeof target.onclick === 'function') {
+                  target.onclick.call(target);
+                }
+              }
+              // 不再阻止按钮的默认行为
+            }
+            
+            // 重置触摸信息
+            touchStartInfo = {
+              target: null,
+              x: 0,
+              y: 0,
+              time: 0,
+              isScrolling: false
+            };
+          }
+        }
+      };
+      
+      // 添加事件监听器
+      document.addEventListener('touchstart', preventDefaultForTwikoo, {passive: false, capture: true});
+      document.addEventListener('touchmove', handleTouchMove, {passive: true, capture: true});
+      document.addEventListener('touchend', preventDefaultForTwikoo, {passive: false, capture: true});
+      document.addEventListener('click', function(e) {
+        const target = e.target.closest('#twikoo a[href="#"]');
+        if (target) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, {capture: true});
+    
+      // 在Twikoo初始化完成后添加事件处理
+      setTimeout(() => {
+        setupCommentEventHandlers();
+      }, 1000); // 给Twikoo一些时间来渲染评论区
+    };
+    script.onerror = (error) => {
+      // Twikoo 脚本加载失败，静默处理
+    };
+    document.body.appendChild(script);
+  }
+  
+  // 监听加载评论事件
+  document.addEventListener("loadComment", () => {
+    loadTwikoo();
+  }, { once: true });
+  
+  // 页面加载完成后自动加载Twikoo（作为备用方案）
+  window.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded event triggered');
+    // 检查是否已经加载过Twikoo
+    if (!document.querySelector('script[src*="twikoo.min.js"]')) {
+      console.log('Twikoo not loaded yet, loading now...');
+      loadTwikoo();
+    }
+  });
+  
+  console.log('Twikoo component initialized');
+  
+  // 设置评论区事件处理函数
+  function setupCommentEventHandlers() {
+    console.log('Setting up comment event handlers');
+    
+    // 移除之前可能存在的事件监听器
+    document.removeEventListener('click', handleCommentClick);
+    
+    // 添加新的事件监听器
+    document.addEventListener('click', handleCommentClick);
+    
+    // 使用MutationObserver监听DOM变化
+    const observer = new MutationObserver((mutations) => {
+      // 当DOM变化时，确保所有新添加的按钮都被正确处理
+      console.log('DOM mutations detected in comment area');
+    });
+    
+    // 开始观察评论区的DOM变化
+    const twikooElement = document.getElementById('twikoo');
+    if (twikooElement) {
+      observer.observe(twikooElement, { 
+        childList: true, 
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['href', 'onclick']
+      });
+      console.log('MutationObserver started for #twikoo element');
+    }
+    
+    // 直接修改所有评论区内的链接和按钮
+    fixAllCommentButtons();
+  }
+  
+  // 处理评论区内的点击事件
+  function handleCommentClick(event) {
+    // 检查点击事件是否发生在评论区内
+    const twikooElement = event.target.closest('#twikoo');
+    if (!twikooElement) return;
+    
+    // 检查点击的元素是否是按钮或链接
+    const clickedElement = event.target.closest('button, a');
+    if (!clickedElement) return;
+    
+    // 获取原始点击事件的目标元素
+    const originalTarget = event.target;
+    
+    // 检查是否是评论提交按钮或其他特殊按钮
+    const isSubmitButton = clickedElement.classList.contains('tk-submit') || 
+                          clickedElement.classList.contains('el-button--primary') ||
+                          clickedElement.getAttribute('type') === 'submit';
+    
+    // 检查是否是有效的外部链接
+    const href = clickedElement.getAttribute('href');
+    const isExternalLink = href && href.startsWith('http') && !href.includes('#');
+    
+    // 只阻止空链接的默认行为，允许其他按钮正常工作
+    if (clickedElement.tagName === 'A' && 
+        (href === '#' || href === '' || href === 'javascript:void(0)' || href === 'javascript:;')) {
+      event.preventDefault();
+      console.log('Prevented default action for empty link in comment area');
+      
+      // 如果元素有onclick属性或事件监听器，手动触发点击逻辑但不导航
+      if (typeof clickedElement.onclick === 'function') {
+        console.log('Element has onclick handler, executing custom logic without navigation');
+        clickedElement.onclick.call(clickedElement);
+      }
+    }
+  }
+  
+  // 修复所有评论区内的按钮
+  function fixAllCommentButtons() {
+    console.log('Fixing all comment buttons');
+    const twikooElement = document.getElementById('twikoo');
+    if (!twikooElement) return;
+    
+    // 只修复空链接，避免干扰其他正常链接
+    const links = twikooElement.querySelectorAll('a');
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === '#' || href === '' || href === 'javascript:void(0)') {
+        // 替换href属性，防止导航到页面顶部
+        link.setAttribute('href', 'javascript:void(0);');
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('Prevented navigation for empty link');
+          
+          // 如果链接有onclick处理函数，手动触发它
+          if (typeof link.onclick === 'function') {
+            link.onclick.call(link);
+          }
+        });
+      }
+    });
+    
+    // 不再阻止按钮的默认行为，让它们正常工作
+    
+    console.log('Fixed all comment buttons');
+  }
+  
+  // 初始的事件监听器设置 - 只处理空链接
+  document.addEventListener('click', function(event) {
+    // 检查点击事件是否发生在评论区内
+    if (event.target.closest('#twikoo')) {
+      // 检查点击的元素是否是链接
+      const clickedElement = event.target.closest('a');
+      if (clickedElement) {
+        // 如果是链接且href为#或javascript:void(0)等，阻止默认行为
+        if (clickedElement.getAttribute('href') === '#' || 
+            clickedElement.getAttribute('href') === 'javascript:void(0)' ||
+            clickedElement.getAttribute('href') === '') {
+          event.preventDefault();
+          console.log('Prevented default action for empty link in comment area');
+          
+          // 如果链接有onclick处理函数，手动触发它
+          if (typeof clickedElement.onclick === 'function') {
+            clickedElement.onclick.call(clickedElement);
+          }
+        }
+      }
+      
+      // 不再阻止按钮的默认行为，让它们正常工作
+    }
+  });
+})();</script></div>    <div class="footer col-span-2 onload-animation hidden lg:block"> <div class="card-base max-w-[var(--page-width)] min-h-[4.5rem] rounded-b-none mx-auto flex items-center px-6 justify-between"> <!--左侧信息 --> <div class="transition text-50 text-sm max-md:text-left mt-2">
+© 2026 Allen2030. All Rights Reserved. 保留所有权利 /
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="/rss.xml">RSS</a> <!--
+        <a class="link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a>
+    --> <br>
+Powered by
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/duancyblog/AllenBlog/">AllenBlog</a> &
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://edgeone.ai">EdgeOne</a> </div> <!--运行时间 --> <script type="text/javascript">function runtime(){const t=new Date("01/01/2026 00:00:00"),n=new Date,s=n-t,e=Math.floor(s/1e3),o=Math.floor(e/86400),i=Math.floor(e%86400/3600),a=Math.floor(e%3600/60),r=e%60;document.getElementById("runningtime").innerHTML=`⭐本站已运行: ${o}天${i}小时${a}分${r}秒 ☁️`}setInterval(runtime,1e3)</script> <div class="transition text-50 text-sm text-center hidden md:block"><p id="runningtime"></p></div> <!--右侧备案等信息 --> <div class="transition text-50 text-sm max-md:text-right mt-2"> <a class="link text-[var(--primary)] font-medium" target="_blank" href="https://beian.miit.gov.cn">冀ICP备2025141090号-1</a> <br> <a class="link text-[var(--primary)] font-medium" target="_blank" href="https://beian.mps.gov.cn/">萌ICP备20245060号</a> </div> </div> </div> </div> </main> <div class="footer col-span-2 onload-animation block lg:hidden"> <div class="card-base max-w-[var(--page-width)] min-h-[4.5rem] rounded-b-none mx-auto flex items-center px-6 justify-between"> <!--左侧信息 --> <div class="transition text-50 text-sm max-md:text-left mt-2">
+© 2026 Allen2030. All Rights Reserved. 保留所有权利 /
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="/rss.xml">RSS</a> <!--
+        <a class="link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a>
+    --> <br>
+Powered by
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/duancyblog/AllenBlog/">AllenBlog</a> &
+<a class="link text-[var(--primary)] font-medium" target="_blank" href="https://edgeone.ai">EdgeOne</a> </div> <!--运行时间 --> <script type="text/javascript">function runtime(){const t=new Date("01/01/2026 00:00:00"),n=new Date,s=n-t,e=Math.floor(s/1e3),o=Math.floor(e/86400),i=Math.floor(e%86400/3600),a=Math.floor(e%3600/60),r=e%60;document.getElementById("runningtime").innerHTML=`⭐本站已运行: ${o}天${i}小时${a}分${r}秒 ☁️`}setInterval(runtime,1e3)</script> <div class="transition text-50 text-sm text-center hidden md:block"><p id="runningtime"></p></div> <!--右侧备案等信息 --> <div class="transition text-50 text-sm max-md:text-right mt-2"> <a class="link text-[var(--primary)] font-medium" target="_blank" href="https://beian.miit.gov.cn">冀ICP备2025141090号-1</a> <br> <a class="link text-[var(--primary)] font-medium" target="_blank" href="https://beian.mps.gov.cn/">萌ICP备20245060号</a> </div> </div> </div> </div> <!-- There can't be a filter on parent element, or it will break `fixed` --><div class="back-to-top-wrapper hidden lg:block" data-astro-cid-eymb5ayk> <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()" data-astro-cid-eymb5ayk> <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem]" data-astro-cid-eymb5ayk> <svg width="1em" height="1em" class="mx-auto" data-astro-cid-eymb5ayk="true" data-icon="material-symbols:keyboard-arrow-up-rounded">   <symbol id="ai:material-symbols:keyboard-arrow-up-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.8l-3.9 3.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.6-4.6q.3-.3.7-.3t.7.3l4.6 4.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></symbol><use href="#ai:material-symbols:keyboard-arrow-up-rounded"></use>  </svg> </button> </div> </div>  <script>
+function backToTop() {
+    window.scroll({ top: 0, behavior: 'smooth' });
+}
+</script> </div> </div>  <div id="mobile-sidebar" class="mobile-sidebar-overlay fixed inset-0 z-[60] lg:hidden opacity-0 invisible transition-all duration-200 ease-out" data-astro-cid-kdccxack> <div class="mobile-sidebar-backdrop absolute inset-0 bg-black/50 transition-opacity duration-200 ease-out opacity-0" id="mobile-sidebar-backdrop" data-astro-cid-kdccxack></div> <div class="mobile-sidebar-panel fixed right-0 top-0 h-full w-80 transform translate-x-full transition-all duration-300 ease-out overflow-y-auto" data-astro-cid-kdccxack> <!-- 头部区域 --> <div class="flex justify-between items-center p-4" data-astro-cid-kdccxack> <!-- 搜索左侧图标链接 --> <div class="flex gap-2" data-astro-cid-kdccxack> <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener noreferrer" class="btn-plain rounded-lg w-10 h-10 active:scale-90 hover:bg-[var(--btn-plain-bg-hover)]" aria-label="travellings" data-astro-cid-kdccxack> <svg width="0.88em" height="1em" class="text-[1.25rem]" data-astro-cid-kdccxack="true" data-icon="fa6-solid:train-subway">   <symbol id="ai:fa6-solid:train-subway" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v256c0 48 35.2 87.7 81.1 94.9l-46 46c-7 7-2 19.1 7.9 19.1h39.7c8.5 0 16.6-3.4 22.6-9.4L160 448h128l54.6 54.6c6 6 14.1 9.4 22.6 9.4h39.7c10 0 15-12.1 7.9-19.1l-46-46c46-7.1 81.1-46.9 81.1-94.9V96c0-53-43-96-96-96zM64 128c0-17.7 14.3-32 32-32h80c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zm208-32h80c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32h-80c-17.7 0-32-14.3-32-32v-96c0-17.7 14.3-32 32-32M64 352a32 32 0 1 1 64 0a32 32 0 1 1-64 0m288-32a32 32 0 1 1 0 64a32 32 0 1 1 0-64"/></symbol><use href="#ai:fa6-solid:train-subway"></use>  </svg> </a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="btn-plain rounded-lg w-10 h-10 active:scale-90 hover:bg-[var(--btn-plain-bg-hover)]" aria-label="rss" data-astro-cid-kdccxack> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem]" data-astro-cid-kdccxack="true" data-icon="ic:twotone-rss-feed">   <use href="#ai:ic:twotone-rss-feed"></use>  </svg> </a> </div> <!-- 关闭按钮 --> <button id="mobile-sidebar-close" class="btn-plain rounded-lg w-10 h-10 active:scale-90" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[1.25rem]" data-astro-cid-kdccxack="true" data-icon="material-symbols:menu-rounded">   <symbol id="ai:material-symbols:menu-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/></symbol><use href="#ai:material-symbols:menu-rounded"></use>  </svg> </button> </div> <!-- 个人信息区域 --> <div class="px-6 pb-6" data-astro-cid-kdccxack> <div class="text-center mb-6" data-astro-cid-kdccxack> <a href="/about/" class="block mx-auto mb-4 w-24 h-24 rounded-full overflow-hidden active:scale-95 transition-transform" data-astro-cid-kdccxack> <div class="w-full h-full object-cover overflow-hidden relative image-wrapper"> <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div> <!-- 加载占位符 --> <div class="image-placeholder absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800"> <div class="animate-pulse w-8 h-8 bg-neutral-300 dark:bg-neutral-600 rounded-full"></div> </div>  <img src="https://img.scdn.io/i/69451d727217f_1766137202.png" alt="Profile Image" class="w-full h-full object-cover image-content opacity-0 transition-opacity duration-300" style="object-position: center" loading="lazy"> </div>  </a> <h2 class="font-bold text-xl text-[var(--primary)] mb-2" data-astro-cid-kdccxack>Allen2030</h2> <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed" data-astro-cid-kdccxack>摸摸猪头，快乐不愁</p> </div> <!-- 社交媒体链接 --> <div class="flex justify-center gap-3 mb-6" data-astro-cid-kdccxack> <a href="/rss.xml" target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90 hover:bg-[var(--btn-regular-bg-hover)]" aria-label="RSS" data-astro-cid-kdccxack> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem]" data-astro-cid-kdccxack="true" data-icon="ic:twotone-rss-feed">   <use href="#ai:ic:twotone-rss-feed"></use>  </svg> </a><a href="https://github.com/duancyblog" target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90 hover:bg-[var(--btn-regular-bg-hover)]" aria-label="GitHub" data-astro-cid-kdccxack> <svg width="0.97em" height="1em" viewBox="0 0 496 512" class="text-[1.25rem]" data-astro-cid-kdccxack="true" data-icon="fa6-brands:github">   <use href="#ai:fa6-brands:github"></use>  </svg> </a> </div> </div> <!-- 导航菜单 --> <div class="px-4" data-astro-cid-kdccxack> <div class="border-t border-[var(--line-divider)] pt-4" data-astro-cid-kdccxack> <nav class="space-y-1" data-astro-cid-kdccxack> <div class="nav-menu-item" data-astro-cid-kdccxack> <a href="/archive/" class="group flex justify-between items-center py-3 px-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-200 font-medium group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[1.1rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:box-archive">   <symbol id="ai:fa6-solid:box-archive" viewBox="0 0 512 512"><path fill="currentColor" d="M32 32h448c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32m0 128h448v256c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64zm128 80c0 8.8 7.2 16 16 16h160c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16"/></symbol><use href="#ai:fa6-solid:box-archive"></use>  </svg> 归档 </div>  </a> </div><div class="nav-menu-item" data-astro-cid-kdccxack> <div data-astro-cid-kdccxack> <button class="group flex justify-between items-center py-3 px-3 rounded-lg w-full hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition mobile-submenu-toggle" data-submenu="mobile-submenu-1" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-900 dark:text-neutral-200 font-medium group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1.25em" height="1em" class="text-[1.1rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:link">   <symbol id="ai:fa6-solid:link" viewBox="0 0 640 512"><path fill="currentColor" d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l112.2-112.3c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0z"/></symbol><use href="#ai:fa6-solid:link"></use>  </svg> 友链 </div> <svg width="1em" height="1em" class="text-[1.25rem] text-[var(--primary)] transition-transform mobile-submenu-arrow" data-astro-cid-kdccxack="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <symbol id="ai:material-symbols:keyboard-arrow-down-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"/></symbol><use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </button> <div class="mobile-submenu mobile-submenu-1 max-h-0 overflow-hidden transition-all duration-250 ease-out" data-astro-cid-kdccxack> <a href="/friends/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1.25em" height="1em" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:user-group">   <symbol id="ai:fa6-solid:user-group" viewBox="0 0 640 512"><path fill="currentColor" d="M96 128a128 128 0 1 1 256 0a128 128 0 1 1-256 0M0 482.3C0 383.8 79.8 304 178.3 304h91.4c98.5 0 178.3 79.8 178.3 178.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3M609.3 512H471.5c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4c89 0 161.2 72.2 161.2 161.3c0 17-13.8 30.7-30.7 30.7M432 256c-31 0-59-12.6-79.3-32.9c19.7-26.6 31.3-59.5 31.3-95.1c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112"/></symbol><use href="#ai:fa6-solid:user-group"></use>  </svg> 友链 </div>  </a><a href="/circle/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:circle-nodes">   <symbol id="ai:fa6-solid:circle-nodes" viewBox="0 0 512 512"><path fill="currentColor" d="M418.4 157.9c35.3-8.3 61.6-40 61.6-77.9c0-44.2-35.8-80-80-80c-43.4 0-78.7 34.5-80 77.5l-183.8 73.6C121.7 136.8 101.9 128 80 128c-44.2 0-80 35.8-80 80s35.8 80 80 80c12.2 0 23.8-2.7 34.1-7.6l145.6 127.4c-2.4 7.6-3.7 15.8-3.7 24.2c0 44.2 35.8 80 80 80s80-35.8 80-80c0-27.7-14-52.1-35.4-66.4zm-262.1 74.3c2.2-6.9 3.5-14.2 3.7-21.7L343.8 137c3.6 3.5 7.4 6.7 11.6 9.5l-37.8 207.6c-5.5 1.3-10.8 3.1-15.8 5.5z"/></symbol><use href="#ai:fa6-solid:circle-nodes"></use>  </svg> 朋友圈 </div>  </a><a href="/comments/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:message">   <symbol id="ai:fa6-solid:message" viewBox="0 0 512 512"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64z"/></symbol><use href="#ai:fa6-solid:message"></use>  </svg> 留言板 </div>  </a> </div> </div> </div><div class="nav-menu-item" data-astro-cid-kdccxack> <div data-astro-cid-kdccxack> <button class="group flex justify-between items-center py-3 px-3 rounded-lg w-full hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition mobile-submenu-toggle" data-submenu="mobile-submenu-2" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-900 dark:text-neutral-200 font-medium group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[1.1rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:chart-line">   <symbol id="ai:fa6-solid:chart-line" viewBox="0 0 512 512"><path fill="currentColor" d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64v336c0 44.2 35.8 80 80 80h400c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l89.4-89.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/></symbol><use href="#ai:fa6-solid:chart-line"></use>  </svg> 其他 </div> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem] text-[var(--primary)] transition-transform mobile-submenu-arrow" data-astro-cid-kdccxack="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </button> <div class="mobile-submenu mobile-submenu-2 max-h-0 overflow-hidden transition-all duration-250 ease-out" data-astro-cid-kdccxack> <a href="https://status.allen2030.com/status/web" target="_blank" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:chart-line">   <use href="#ai:fa6-solid:chart-line"></use>  </svg> 服务监控 </div> <svg width="1em" height="1em" class="text-[0.75rem] text-neutral-400 dark:text-neutral-500" data-astro-cid-kdccxack="true" data-icon="fa6-solid:arrow-up-right-from-square">   <symbol id="ai:fa6-solid:arrow-up-right-from-square" viewBox="0 0 512 512"><path fill="currentColor" d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32zM80 32C35.8 32 0 67.8 0 112v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></symbol><use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a><a href="https://monitor.allen2030.com" target="_blank" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:chart-line">   <use href="#ai:fa6-solid:chart-line"></use>  </svg> 节点监控 </div> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.75rem] text-neutral-400 dark:text-neutral-500" data-astro-cid-kdccxack="true" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a> </div> </div> </div><div class="nav-menu-item" data-astro-cid-kdccxack> <div data-astro-cid-kdccxack> <button class="group flex justify-between items-center py-3 px-3 rounded-lg w-full hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition mobile-submenu-toggle" data-submenu="mobile-submenu-3" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-900 dark:text-neutral-200 font-medium group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="0.88em" height="1em" class="text-[1.1rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:user">   <symbol id="ai:fa6-solid:user" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256a128 128 0 1 0 0-256a128 128 0 1 0 0 256m-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512h388.6c16.4 0 29.7-13.3 29.7-29.7c0-98.5-79.8-178.3-178.3-178.3z"/></symbol><use href="#ai:fa6-solid:user"></use>  </svg> 我的 </div> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[1.25rem] text-[var(--primary)] transition-transform mobile-submenu-arrow" data-astro-cid-kdccxack="true" data-icon="material-symbols:keyboard-arrow-down-rounded">   <use href="#ai:material-symbols:keyboard-arrow-down-rounded"></use>  </svg> </button> <div class="mobile-submenu mobile-submenu-3 max-h-0 overflow-hidden transition-all duration-250 ease-out" data-astro-cid-kdccxack> <a href="/album/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="material-symbols:photo-library">   <symbol id="ai:material-symbols:photo-library" viewBox="0 0 24 24"><path fill="currentColor" d="M9 14h10l-3.45-4.5l-2.3 3l-1.55-2zm-1 4q-.825 0-1.412-.587T6 16V4q0-.825.588-1.412T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-4 4q-.825 0-1.412-.587T2 20V6h2v14h14v2z"/></symbol><use href="#ai:material-symbols:photo-library"></use>  </svg> 相册 </div>  </a><a href="/essay/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="material-symbols:photo-camera">   <use href="#ai:material-symbols:photo-camera"></use>  </svg> 瞬间 </div>  </a><a href="/about/" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="0.88em" height="1em" viewBox="0 0 448 512" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="fa6-solid:user">   <use href="#ai:fa6-solid:user"></use>  </svg> 关于 </div>  </a><a href="https://www.allen2030.com" target="_blank" class="group flex justify-between items-center py-2.5 pl-10 pr-3 rounded-lg hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition" data-astro-cid-kdccxack> <div class="flex items-center text-neutral-800 dark:text-neutral-300 text-sm group-hover:text-[var(--primary)]" data-astro-cid-kdccxack> <svg width="1em" height="1em" class="text-[0.9rem] mr-3" data-astro-cid-kdccxack="true" data-icon="material-symbols:home">   <symbol id="ai:material-symbols:home" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7z"/></symbol><use href="#ai:material-symbols:home"></use>  </svg> 主页 </div> <svg width="1em" height="1em" viewBox="0 0 512 512" class="text-[0.75rem] text-neutral-400 dark:text-neutral-500" data-astro-cid-kdccxack="true" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a> </div> </div> </div> </nav> </div> </div> </div> </div> <script type="module">function a(){const t=document.getElementById("mobile-sidebar"),o=t?.querySelector(".mobile-sidebar-panel"),d=document.getElementById("mobile-sidebar-close"),r=document.getElementById("nav-menu-switch");function u(){if(t&&o){const e=document.getElementById("mobile-sidebar-backdrop");t.classList.remove("opacity-0","invisible"),t.classList.add("opacity-100","visible"),setTimeout(()=>{o.classList.remove("translate-x-full"),e?.classList.remove("opacity-0"),e?.classList.add("opacity-100")},50)}}function n(){if(t&&o){const e=document.getElementById("mobile-sidebar-backdrop");o.classList.add("translate-x-full"),e?.classList.remove("opacity-100"),e?.classList.add("opacity-0"),setTimeout(()=>{t.classList.add("opacity-0","invisible"),t.classList.remove("opacity-100","visible")},300)}}document.querySelectorAll(".mobile-submenu-toggle").forEach(e=>{const i=e.cloneNode(!0);e.parentNode?.replaceChild(i,e)});const m=document.getElementById("mobile-sidebar-backdrop");r?.addEventListener("click",u),d?.addEventListener("click",n),m?.addEventListener("click",n),document.querySelectorAll(".mobile-submenu-toggle").forEach(e=>{e.addEventListener("click",function(){const i=this.getAttribute("data-submenu"),s=document.querySelector(`.${i}`),c=this.querySelector(".mobile-submenu-arrow");s&&(s.style.maxHeight&&s.style.maxHeight!=="0px"?(s.style.maxHeight="0px",c?.classList.remove("rotate-180")):(s.style.maxHeight=s.scrollHeight+"px",c?.classList.add("rotate-180")))})})}a();const l=()=>{window.swup&&window.swup.hooks&&window.swup.hooks.on("page:view",a)};window.swup?l():document.addEventListener("swup:enable",l);</script>   <div class="absolute w-full z-0 hidden 2xl:block"> <div class="relative max-w-[var(--page-width)] mx-auto"> <!-- TOC component --> <div id="toc-wrapper" class="hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center toc-hide"> <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar"> <div id="toc" class="w-full h-full transition-swup-fade "> <div class="h-8 w-full"></div> <script type="module">class l extends HTMLElement{tocEl=null;visibleClass="visible";observer;anchorNavTarget=null;headingIdxMap=new Map;headings=[];sections=[];tocEntries=[];active=[];activeIndicator=null;constructor(){super(),this.observer=new IntersectionObserver(this.markVisibleSection,{threshold:0})}markVisibleSection=t=>{t.forEach(e=>{const i=e.target.children[0]?.getAttribute("id"),s=i?this.headingIdxMap.get(i):void 0;s!=null&&(this.active[s]=e.isIntersecting),e.isIntersecting&&this.anchorNavTarget==e.target.firstChild&&(this.anchorNavTarget=null)}),this.active.includes(!0)||this.fallback(),this.update()};toggleActiveHeading=()=>{let t=this.active.length-1,e=this.active.length-1,i=0;for(;t>=0&&!this.active[t];)this.tocEntries[t].classList.remove(this.visibleClass),t--;for(;t>=0&&this.active[t];)this.tocEntries[t].classList.add(this.visibleClass),e=Math.min(e,t),i=Math.max(i,t),t--;for(;t>=0;)this.tocEntries[t].classList.remove(this.visibleClass),t--;let s=this.tocEl?.getBoundingClientRect().top||0,n=this.tocEl?.scrollTop||0,o=this.tocEntries[e].getBoundingClientRect().top-s+n,c=this.tocEntries[i].getBoundingClientRect().bottom-s+n;this.activeIndicator?.setAttribute("style",`top: ${o}px; height: ${c-o}px`)};scrollToActiveHeading=()=>{if(this.anchorNavTarget||!this.tocEl)return;const t=document.querySelectorAll(`#toc .${this.visibleClass}`);if(!t.length)return;const e=t[0],i=t[t.length-1],s=this.tocEl.clientHeight;let n;i.getBoundingClientRect().bottom-e.getBoundingClientRect().top<.9*s?n=e.offsetTop-32:n=i.offsetTop-s*.8,this.tocEl.scrollTo({top:n,left:0,behavior:"smooth"})};update=()=>{requestAnimationFrame(()=>{this.toggleActiveHeading(),this.scrollToActiveHeading()})};fallback=()=>{if(this.sections.length)for(let t=0;t<this.sections.length;t++){let e=this.sections[t].getBoundingClientRect().top,i=this.sections[t].getBoundingClientRect().bottom;if(this.isInRange(e,0,window.innerHeight)||this.isInRange(i,0,window.innerHeight)||e<0&&i>window.innerHeight)this.markActiveHeading(t);else if(e>window.innerHeight)break}};markActiveHeading=t=>{this.active[t]=!0};handleAnchorClick=t=>{const e=t.composedPath().find(i=>i instanceof HTMLAnchorElement);if(e){const i=decodeURIComponent(e.hash?.substring(1)),s=this.headingIdxMap.get(i);s!==void 0?this.anchorNavTarget=this.headings[s]:this.anchorNavTarget=null}};isInRange(t,e,i){return e<t&&t<i}connectedCallback(){const t=document.querySelector(".prose");t?t.addEventListener("animationend",()=>{this.init()},{once:!0}):console.debug("Animation element not found")}init(){if(this.tocEl=document.getElementById("toc-inner-wrapper"),!!this.tocEl&&(this.tocEl.addEventListener("click",this.handleAnchorClick,{capture:!0}),this.activeIndicator=document.getElementById("active-indicator"),this.tocEntries=Array.from(document.querySelectorAll("#toc a[href^='#']")),this.tocEntries.length!==0)){this.sections=new Array(this.tocEntries.length),this.headings=new Array(this.tocEntries.length);for(let t=0;t<this.tocEntries.length;t++){const e=decodeURIComponent(this.tocEntries[t].hash?.substring(1)),i=document.getElementById(e),s=i?.parentElement;i instanceof HTMLElement&&s instanceof HTMLElement&&(this.headings[t]=i,this.sections[t]=s,this.headingIdxMap.set(e,t))}this.active=new Array(this.tocEntries.length).fill(!1),this.sections.forEach(t=>this.observer.observe(t)),this.fallback(),this.update()}}disconnectedCallback(){this.sections.forEach(t=>this.observer.unobserve(t)),this.observer.disconnect(),this.tocEl?.removeEventListener("click",this.handleAnchorClick)}}customElements.get("table-of-contents")||customElements.define("table-of-contents",l);</script> <div class="h-8 w-full"></div> </div> </div> </div> <!-- #toc needs to exist for Swup to work normally -->  </div> </div>  <!-- 安全跳转提示弹窗 --> <div id="safe-redirect-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <div class="bg-[var(--card-bg)] rounded-lg shadow-lg p-6 max-w-md w-full mx-4 border border-[var(--line-divider)] relative" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <!-- 关闭按钮 --> <button id="redirect-close" class="absolute top-3 right-3 text-[var(--text-75)] hover:text-[var(--text-90)] transition-colors" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></line> </svg> </button> <div class="flex items-center gap-2 mb-4" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <div class="text-green-500" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <polyline points="20 6 9 17 4 12" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></polyline> </svg> </div> <h3 class="text-lg font-bold text-[var(--text-90)]" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;">安全跳转提示</h3> </div> <p class="text-[var(--text-75)] mb-4" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;">您即将访问外部链接：</p> <div class="bg-[var(--btn-card-bg-hover)] rounded-md p-3 mb-4 break-all" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <span id="external-link-url" class="text-sm" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></span> </div> <div class="bg-green-50 border border-green-200 text-green-800 rounded-md p-3 mb-4 flex items-center gap-2" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"> <polyline points="20 6 9 17 4 12" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></polyline> </svg> <span class="text-sm" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;">外部链接使用 HTTPS 加密连接</span> </div> <button id="redirect-confirm" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-colors" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;">
+立即前往
+</button> </div> </div> <!-- increase the page height during page transition to prevent the scrolling animation from jumping --> <div id="page-height-extend" class="hidden h-[300vh]" data-astro-cid-sckkx6r4 style="--bannerOffset: 17.5vh;--banner-height-home: 80vh;--banner-height: 45vh;--configHue: 260;--page-width: 90rem;--card-opacity: 0.85;"></div>  <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.BIVa_6cz.js"></script> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_1_lang.BE0brDS4.js"></script></body></html>
